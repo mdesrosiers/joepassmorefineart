@@ -1,0 +1,31 @@
+{
+  "env": {
+		"browser": true,
+		"es6": true
+	},
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "strict": 0
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+		"plugin:flowtype/recommended",
+		"plugin:prettier/recommended",
+		"prettier",
+		"prettier/flowtype",
+		"prettier/react"
+  ],
+  "plugins": ["react", "flowtype", "prettier"],
+  "settings": {
+    "react": {
+      "version": "16.5.2",
+      "flowVersion": "0.82"
+    }
+  }
+}
