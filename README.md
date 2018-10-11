@@ -1,4 +1,4 @@
 # Joe Passmore Fine Art
 
-[https://jpassmorefineart.com/](https://jpassmorefineart.com/)
+[https://joepassmorefineart.com/](https://joepassmorefineart.com/)
 

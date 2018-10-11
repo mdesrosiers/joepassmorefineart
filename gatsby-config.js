@@ -36,9 +36,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        trackingId: 'UA-127123065-1',
-        optimizeId: 'GTM-MNTFDZL',
-        cookieDomain: 'jpassmorefineart.com'
+        trackingId: 'UA-127331168-1',
+        optimizeId: 'GTM-M2ZM6SB',
+        cookieDomain: 'joepassmorefineart.com'
       }
     },
     'gatsby-plugin-eslint',
