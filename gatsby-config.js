@@ -2,9 +2,12 @@ const path = require('path');
 
 module.exports = {
   siteMetadata: {
-    title: 'Joe Passmore'
+    title: 'Joe Passmore',
+    siteUrl: 'https://joepassmorefineart.com'
   },
   plugins: [
+    'gatsby-plugin-robots-txt',
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
@@ -17,7 +20,7 @@ module.exports = {
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png'
+        icon: 'src/images/favicon.png'
       }
     },
     {
