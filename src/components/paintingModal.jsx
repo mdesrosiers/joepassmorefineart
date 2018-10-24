@@ -20,24 +20,17 @@ type Props = {
 const styles = theme => ({
   modal: {
     position: 'absolute',
-    top: '50%',
+    top: 50,
     left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 1100,
+    transform: 'translate(-50%)',
+    width: 900,
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4
+    boxShadow: theme.shadows[5]
   }
 });
 
 const PaintingModal = ({ open = false, edge, onClose, classes }: Props) => (
-  <Modal
-    container={() => document.getElementById('___gatsby')}
-    open={open}
-    onClose={onClose}
-    aria-labelledby="simple-modal-title"
-    aria-describedby="simple-modal-description"
-  >
+  <Modal open={open} onClose={onClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
     <div className={classes.modal}>
       <Img {...edge.node.large} />
     </div>

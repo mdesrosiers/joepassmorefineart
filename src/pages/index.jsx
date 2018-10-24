@@ -19,7 +19,7 @@ const query = graphql`
             }
           }
           large: childImageSharp {
-            fluid(maxWidth: 1200, maxHeight: 900) {
+            fluid(maxWidth: 900) {
               ...GatsbyImageSharpFluid
             }
           }
