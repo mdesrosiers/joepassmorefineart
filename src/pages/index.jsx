@@ -10,7 +10,7 @@ import PaintingModal from '../components/paintingModal';
 
 const query = graphql`
   query {
-    allFile(filter: { relativePath: { regex: "/paintings/" } }, sort: { fields: [birthTime], order: DESC }) {
+    allFile(filter: { relativePath: { regex: "/paintings/" } }, sort: { fields: [mtime], order: DESC }) {
       edges {
         node {
           small: childImageSharp {
@@ -19,7 +19,7 @@ const query = graphql`
             }
           }
           large: childImageSharp {
-            fluid(maxWidth: 900) {
+            fluid(maxWidth: 900, maxHeight: 650) {
               ...GatsbyImageSharpFluid
             }
           }
