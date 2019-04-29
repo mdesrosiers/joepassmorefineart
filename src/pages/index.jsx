@@ -10,7 +10,7 @@ import PaintingModal from '../components/paintingModal';
 
 const query = graphql`
   query {
-    allFile(filter: { relativePath: { regex: "/paintings/" } }, sort: { fields: [mtime], order: DESC }) {
+    allFile(filter: { relativePath: { regex: "/paintings/" } }, sort: { fields: [name], order: DESC }) {
       edges {
         node {
           small: childImageSharp {
