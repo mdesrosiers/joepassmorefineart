@@ -10,7 +10,7 @@ import Layout from '../components/layout';
 
 const query = graphql`
   query {
-    file(relativePath: { eq: "paintings/03.jpg" }) {
+    file(relativePath: { eq: "paintings/003.jpg" }) {
       childImageSharp {
         fixed(width: 400, height: 300) {
           ...GatsbyImageSharpFixed
