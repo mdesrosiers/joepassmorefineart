@@ -43,25 +43,23 @@ const Layout = ({ classes, children }: Props) => (
   <StaticQuery
     query={query}
     render={data => (
-      <>
-        <MuiThemeProvider theme={theme}>
-          <Helmet
-            title={data.site.siteMetadata.title}
-            meta={[
-              { name: 'description', content: 'Joe Passmore is a painter based in Vancouver, British Columbia' },
-              {
-                name: 'keywords',
-                content: 'artist, painter, paintings, gallery, Vancouver, British Columbia, Canada'
-              }
-            ]}
-          >
-            <html lang="en" />
-          </Helmet>
-          <Header title={data.site.siteMetadata.title} />
-          <main className={classes.main}>{children}</main>
-          <Footer />
-        </MuiThemeProvider>
-      </>
+      <MuiThemeProvider theme={theme}>
+        <Helmet
+          title={data.site.siteMetadata.title}
+          meta={[
+            { name: 'description', content: 'Joe Passmore is a painter based in Vancouver, British Columbia' },
+            {
+              name: 'keywords',
+              content: 'artist, painter, paintings, gallery, Vancouver, British Columbia, Canada'
+            }
+          ]}
+        >
+          <html lang="en" />
+        </Helmet>
+        <Header title={data.site.siteMetadata.title} />
+        <main className={classes.main}>{children}</main>
+        <Footer />
+      </MuiThemeProvider>
     )}
   />
 );

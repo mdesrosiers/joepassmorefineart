@@ -20,7 +20,7 @@ const Paintings = ({ edges, onOpenModal }: Props) => (
   </div>
 );
 
-function getPaintingsStyle() {
+function getPaintingsStyle(): {} {
   return {
     display: 'flex',
     flexWrap: 'wrap',
@@ -30,7 +30,7 @@ function getPaintingsStyle() {
   };
 }
 
-function getPaintingThumbnailStyle() {
+function getPaintingThumbnailStyle(): {} {
   return {
     margin: 10,
     width: 300,

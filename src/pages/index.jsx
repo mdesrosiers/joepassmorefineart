@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 
 import Layout from '../components/layout';
@@ -38,7 +38,7 @@ type State = {
   paintingIndex: number
 };
 
-export default class Index extends React.PureComponent<Props, State> {
+export default class Index extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
