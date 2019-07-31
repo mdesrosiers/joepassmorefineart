@@ -7,10 +7,10 @@ import Typography from '@material-ui/core/Typography';
 const Hero = () => (
   <div>
     <div style={getHeroContentStyle()}>
-      <Typography variant="display1" align="center" color="textPrimary" gutterBottom>
+      <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
         Joe Passmore
       </Typography>
-      <Typography variant="headline" align="center" color="textSecondary" paragraph>
+      <Typography variant="subtitle1" align="center" color="textSecondary" paragraph>
         My work reflects what I see and admire in the world that we all live in, people and places that remain in my
         memory.
       </Typography>

@@ -33,7 +33,7 @@ const styles = () => ({
 const Header = ({ title, classes }: Props) => (
   <AppBar className={classes.appBar}>
     <Toolbar className={classes.toolbar}>
-      <Typography variant="display2" color="inherit" noWrap className={classes.toolbarTitle}>
+      <Typography variant="h5" color="inherit" noWrap className={classes.toolbarTitle}>
         <Link to="/" className={classes.headerLink}>
           {title}
         </Link>

@@ -29,8 +29,8 @@ const Footer = () => (
         icon={<Etsy />}
       />
     </BottomNavigation>
-    <Typography variant="caption" align="center" color="textSecondary">
-      Copyright &copy; 2018 Joe Passmore. All Rights Reserved.
+    <Typography variant="caption" align="center" display="block" color="textSecondary">
+      Copyright &copy; 2019 Joe Passmore. All Rights Reserved.
     </Typography>
   </footer>
 );
