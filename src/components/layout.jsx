@@ -26,7 +26,7 @@ const query = graphql`
   }
 `;
 
-const styles = theme => ({
+const styles = (theme) => ({
   main: {
     width: 'auto',
     marginLeft: theme.spacing.unit * 3,
@@ -42,7 +42,7 @@ const styles = theme => ({
 const Layout = ({ classes, children }: Props) => (
   <StaticQuery
     query={query}
-    render={data => (
+    render={(data) => (
       <MuiThemeProvider theme={theme}>
         <Helmet
           title={data.site.siteMetadata.title}

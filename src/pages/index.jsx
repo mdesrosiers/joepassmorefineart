@@ -51,7 +51,7 @@ export default class Index extends PureComponent<Props, State> {
     return (
       <StaticQuery
         query={query}
-        render={data => (
+        render={(data) => (
           <Layout>
             <Hero />
             <Paintings edges={data.allFile.edges} onOpenModal={this.handleOpenModal.bind(this)} />

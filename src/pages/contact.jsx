@@ -25,7 +25,7 @@ type Props = {
   classes: { [string]: {} }
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   contact: {
     marginTop: theme.spacing.unit * 8,
     display: 'flex'
@@ -50,7 +50,7 @@ const styles = theme => ({
 const Contact = ({ classes }: Props) => (
   <StaticQuery
     query={query}
-    render={data => (
+    render={(data) => (
       <Layout>
         <div className={classes.contact}>
           <aside className={classes.aside}>

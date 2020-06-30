@@ -24,7 +24,7 @@ type Props = {
   classes: { [string]: {} }
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   about: {
     marginTop: theme.spacing.unit * 8,
     display: 'flex'
@@ -49,7 +49,7 @@ const styles = theme => ({
 const About = ({ classes }: Props) => (
   <StaticQuery
     query={query}
-    render={data => (
+    render={(data) => (
       <Layout>
         <div className={classes.about}>
           <aside className={classes.aside}>

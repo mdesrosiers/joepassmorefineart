@@ -17,7 +17,7 @@ type Props = {
   onClose: () => mixed
 };
 
-const styles = theme => ({
+const styles = (theme) => ({
   modal: {
     position: 'absolute',
     top: 50,

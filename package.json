@@ -37,23 +37,24 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write '**/*.js'"
+    "format": "prettier --write '**/*.js'",
+    "flow": "flow --show-all-errors --max-warnings 0"
   },
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "babel-cli": "6.26.0",
-    "babel-eslint": "10.0.2",
-    "eslint": "6.1.0",
-    "eslint-config-prettier": "6.0.0",
-    "eslint-loader": "2.2.1",
-    "eslint-plugin-flowtype": "3.12.2",
-    "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-prettier": "3.1.0",
-    "eslint-plugin-react": "7.14.3",
-    "flow-bin": "0.104.0",
-    "gatsby-cli": "2.7.26",
-    "prettier": "1.18.2",
-    "webpack": "4.39.1"
+    "@babel/cli": "7.10.4",
+    "@babel/core": "7.10.4",
+    "babel-eslint": "10.1.0",
+    "eslint": "7.3.1",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-loader": "4.0.2",
+    "eslint-plugin-flowtype": "5.2.0",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-react": "7.20.2",
+    "flow-bin": "0.128.0",
+    "gatsby-cli": "2.12.52",
+    "prettier": "2.0.5",
+    "webpack": "4.43.0"
   },
   "repository": {
     "type": "git",

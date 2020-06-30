@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 
 type Props = {
   edges: [],
-  onOpenModal: number => mixed
+  onOpenModal: (number) => mixed
 };
 
 const Paintings = ({ edges, onOpenModal }: Props) => (
