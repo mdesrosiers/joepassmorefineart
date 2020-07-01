@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Etsy, Facebook, Instagram } from 'mdi-material-ui';
+import { FaFacebook, FaEtsy, FaInstagram } from 'react-icons/fa';
 
 import Typography from '@material-ui/core/Typography';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -14,19 +14,19 @@ const Footer = () => (
         href="https://www.facebook.com/joe.passmore.33"
         rel="noopener noreferrer"
         target="_blank"
-        icon={<Facebook />}
+        icon={<FaFacebook />}
       />
       <BottomNavigationAction
         href="https://www.instagram.com/joepassmorefineart/"
         rel="noopener noreferrer"
         target="_blank"
-        icon={<Instagram />}
+        icon={<FaInstagram />}
       />
       <BottomNavigationAction
         href="https://www.etsy.com/ca/shop/joepassmorefineart"
         rel="noopener noreferrer"
         target="_blank"
-        icon={<Etsy />}
+        icon={<FaEtsy />}
       />
     </BottomNavigation>
     <Typography variant="caption" align="center" display="block" color="textSecondary">
