@@ -28,11 +28,18 @@ const styles = (theme) => ({
 });
 
 function PaintingModal({ open = false, edge, onClose, classes }: Props) {
-  <Modal open={open} onClose={onClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-    <div className={classes.modal}>
-      <Img {...edge.node.large} />
-    </div>
-  </Modal>;
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description"
+    >
+      <div className={classes.modal}>
+        <Img {...edge.node.large} />
+      </div>
+    </Modal>
+  );
 }
 
 export default withStyles(styles)(PaintingModal);

@@ -9,13 +9,15 @@ type Props = {|
 |};
 
 export default function Paintings({ edges, onOpenModal }: Props) {
-  <div style={getPaintingsStyle()}>
-    {edges.map(({ node }, index) => (
-      <Paper key={index} style={getPaintingThumbnailStyle()} onClick={() => onOpenModal(index)}>
-        <Img {...node.small} />
-      </Paper>
-    ))}
-  </div>;
+  return (
+    <div style={getPaintingsStyle()}>
+      {edges.map(({ node }, index) => (
+        <Paper key={index} style={getPaintingThumbnailStyle()} onClick={() => onOpenModal(index)}>
+          <Img {...node.small} />
+        </Paper>
+      ))}
+    </div>
+  );
 }
 
 function getPaintingsStyle(): {} {

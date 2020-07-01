@@ -29,29 +29,31 @@ const styles = () => ({
 });
 
 function Header({ title, classes }: Props) {
-  <AppBar className={classes.appBar}>
-    <Toolbar className={classes.toolbar}>
-      <Typography variant="h5" color="inherit" noWrap className={classes.toolbarTitle}>
-        <Link to="/" className={classes.headerLink}>
-          {title}
-        </Link>
-      </Typography>
-      <Button color="inherit" component={Link} to="about">
-        About
-      </Button>
-      <Button color="inherit" component={Link} to="contact">
-        Contact
-      </Button>
-      <a
-        href="https://www.etsy.com/ca/shop/joepassmorefineart"
-        rel="noopener noreferrer"
-        target="_blank"
-        className={classes.headerLink}
-      >
-        <Button color="inherit">Buy Now</Button>
-      </a>
-    </Toolbar>
-  </AppBar>;
+  return (
+    <AppBar className={classes.appBar}>
+      <Toolbar className={classes.toolbar}>
+        <Typography variant="h5" color="inherit" noWrap className={classes.toolbarTitle}>
+          <Link to="/" className={classes.headerLink}>
+            {title}
+          </Link>
+        </Typography>
+        <Button color="inherit" component={Link} to="about">
+          About
+        </Button>
+        <Button color="inherit" component={Link} to="contact">
+          Contact
+        </Button>
+        <a
+          href="https://www.etsy.com/ca/shop/joepassmorefineart"
+          rel="noopener noreferrer"
+          target="_blank"
+          className={classes.headerLink}
+        >
+          <Button color="inherit">Buy Now</Button>
+        </a>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 export default withStyles(styles)(Header);

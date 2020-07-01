@@ -44,31 +44,33 @@ const styles = (theme) => ({
 });
 
 function About({ classes }: Props) {
-  <StaticQuery
-    query={query}
-    render={(data) => (
-      <Layout>
-        <div className={classes.about}>
-          <aside className={classes.aside}>
-            <Img {...data.file.childImageSharp} />
-          </aside>
-          <article className={classes.article}>
-            <h1>About the Artist</h1>
-            <p>
-              Born in Scotland in 1945, I was influenced to paint by my brother, James, and at the age of 15 I did my
-              first painting, a still life in water colour, since then I have painted in oils. The idea of creating a
-              painting from start to finish gives me a real sense of accomplishment and satisfaction.
-            </p>
-            <p>
-              In the sixties I spent some time in Corfu, Greece, where I painted some of my most memorable work. The
-              sunsets and sunrises there gave me a feeling of peace and tranquility that I have tried to express in my
-              paintings.
-            </p>
-          </article>
-        </div>
-      </Layout>
-    )}
-  />;
+  return (
+    <StaticQuery
+      query={query}
+      render={(data) => (
+        <Layout>
+          <div className={classes.about}>
+            <aside className={classes.aside}>
+              <Img {...data.file.childImageSharp} />
+            </aside>
+            <article className={classes.article}>
+              <h1>About the Artist</h1>
+              <p>
+                Born in Scotland in 1945, I was influenced to paint by my brother, James, and at the age of 15 I did my
+                first painting, a still life in water colour, since then I have painted in oils. The idea of creating a
+                painting from start to finish gives me a real sense of accomplishment and satisfaction.
+              </p>
+              <p>
+                In the sixties I spent some time in Corfu, Greece, where I painted some of my most memorable work. The
+                sunsets and sunrises there gave me a feeling of peace and tranquility that I have tried to express in my
+                paintings.
+              </p>
+            </article>
+          </div>
+        </Layout>
+      )}
+    />
+  );
 }
 
 export default withStyles(styles)(About);

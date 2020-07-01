@@ -45,47 +45,49 @@ const styles = (theme) => ({
 });
 
 function Contact({ classes }: Props) {
-  <StaticQuery
-    query={query}
-    render={(data) => (
-      <Layout>
-        <div className={classes.contact}>
-          <aside className={classes.aside}>
-            <Img {...data.file.childImageSharp} />
-          </aside>
-          <article className={classes.article}>
-            <h1>Contact</h1>
-            <p>
-              For paper prints or canvas prints or my paintings, visit my shop on Etsy:{' '}
-              <OutboundLink
-                href="https://www.etsy.com/ca/shop/joepassmorefineart"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                joepassmorefineart
-              </OutboundLink>
-            </p>
-            <p>
-              Follow me on Instagram:{' '}
-              <OutboundLink
-                href="https://www.instagram.com/joepassmorefineart/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                @joepassmorefineart
-              </OutboundLink>
-            </p>
-            <p>
-              Find me on Facebook:{' '}
-              <OutboundLink href="https://www.facebook.com/joe.passmore.33" rel="noopener noreferrer" target="_blank">
-                joe.passmore.33
-              </OutboundLink>
-            </p>
-          </article>
-        </div>
-      </Layout>
-    )}
-  />;
+  return (
+    <StaticQuery
+      query={query}
+      render={(data) => (
+        <Layout>
+          <div className={classes.contact}>
+            <aside className={classes.aside}>
+              <Img {...data.file.childImageSharp} />
+            </aside>
+            <article className={classes.article}>
+              <h1>Contact</h1>
+              <p>
+                For paper prints or canvas prints or my paintings, visit my shop on Etsy:{' '}
+                <OutboundLink
+                  href="https://www.etsy.com/ca/shop/joepassmorefineart"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  joepassmorefineart
+                </OutboundLink>
+              </p>
+              <p>
+                Follow me on Instagram:{' '}
+                <OutboundLink
+                  href="https://www.instagram.com/joepassmorefineart/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  @joepassmorefineart
+                </OutboundLink>
+              </p>
+              <p>
+                Find me on Facebook:{' '}
+                <OutboundLink href="https://www.facebook.com/joe.passmore.33" rel="noopener noreferrer" target="_blank">
+                  joe.passmore.33
+                </OutboundLink>
+              </p>
+            </article>
+          </div>
+        </Layout>
+      )}
+    />
+  );
 }
 
 export default withStyles(styles)(Contact);
