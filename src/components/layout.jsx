@@ -1,20 +1,17 @@
 // @flow
-
 import * as React from 'react';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
-
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { withStyles } from '@material-ui/core/styles';
-
 import theme from '../utils/theme';
 import Header from './header';
 import Footer from './footer';
 
-type Props = {
+type Props = {|
   classes: { [string]: {} },
   children: React.Node
-};
+|};
 
 const query = graphql`
   query LayoutQuery {
@@ -39,7 +36,7 @@ const styles = (theme) => ({
   }
 });
 
-const Layout = ({ classes, children }: Props) => (
+function Layout({ classes, children }: Props) {
   <StaticQuery
     query={query}
     render={(data) => (
@@ -61,7 +58,7 @@ const Layout = ({ classes, children }: Props) => (
         <Footer />
       </MuiThemeProvider>
     )}
-  />
-);
+  />;
+}
 
 export default withStyles(styles)(Layout);

@@ -1,11 +1,8 @@
 // @flow
-
 import React from 'react';
 import Img from 'gatsby-image';
 import { StaticQuery, graphql } from 'gatsby';
-
 import { withStyles } from '@material-ui/core/styles';
-
 import Layout from '../components/layout';
 
 const query = graphql`
@@ -20,9 +17,9 @@ const query = graphql`
   }
 `;
 
-type Props = {
+type Props = {|
   classes: { [string]: {} }
-};
+|};
 
 const styles = (theme) => ({
   about: {
@@ -46,7 +43,7 @@ const styles = (theme) => ({
   }
 });
 
-const About = ({ classes }: Props) => (
+function About({ classes }: Props) {
   <StaticQuery
     query={query}
     render={(data) => (
@@ -71,7 +68,7 @@ const About = ({ classes }: Props) => (
         </div>
       </Layout>
     )}
-  />
-);
+  />;
+}
 
 export default withStyles(styles)(About);

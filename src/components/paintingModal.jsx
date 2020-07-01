@@ -1,12 +1,10 @@
 // @flow
-
 import React from 'react';
 import Img from 'gatsby-image';
-
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
-type Props = {
+type Props = {|
   edge: {
     node: {
       large: {}
@@ -15,7 +13,7 @@ type Props = {
   open: boolean,
   classes: { [string]: {} },
   onClose: () => mixed
-};
+|};
 
 const styles = (theme) => ({
   modal: {
@@ -29,12 +27,12 @@ const styles = (theme) => ({
   }
 });
 
-const PaintingModal = ({ open = false, edge, onClose, classes }: Props) => (
+function PaintingModal({ open = false, edge, onClose, classes }: Props) {
   <Modal open={open} onClose={onClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
     <div className={classes.modal}>
       <Img {...edge.node.large} />
     </div>
-  </Modal>
-);
+  </Modal>;
+}
 
 export default withStyles(styles)(PaintingModal);

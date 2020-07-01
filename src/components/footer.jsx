@@ -1,13 +1,11 @@
 // @flow
-
 import React from 'react';
 import { FaFacebook, FaEtsy, FaInstagram } from 'react-icons/fa';
-
 import Typography from '@material-ui/core/Typography';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-const Footer = () => (
+export default function Footer() {
   <footer style={getFooterStyle()}>
     <BottomNavigation style={getBottomNavigationStyle()}>
       <BottomNavigationAction
@@ -32,8 +30,8 @@ const Footer = () => (
     <Typography variant="caption" align="center" display="block" color="textSecondary">
       Copyright &copy; 2019 Joe Passmore. All Rights Reserved.
     </Typography>
-  </footer>
-);
+  </footer>;
+}
 
 function getFooterStyle() {
   return {
@@ -47,5 +45,3 @@ function getBottomNavigationStyle() {
     backgroundColor: '#E1E2E1'
   };
 }
-
-export default Footer;

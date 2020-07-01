@@ -1,24 +1,22 @@
 // @flow
-
 import React from 'react';
 import Img from 'gatsby-image';
-
 import Paper from '@material-ui/core/Paper';
 
-type Props = {
+type Props = {|
   edges: [],
   onOpenModal: (number) => mixed
-};
+|};
 
-const Paintings = ({ edges, onOpenModal }: Props) => (
+export default function Paintings({ edges, onOpenModal }: Props) {
   <div style={getPaintingsStyle()}>
     {edges.map(({ node }, index) => (
       <Paper key={index} style={getPaintingThumbnailStyle()} onClick={() => onOpenModal(index)}>
         <Img {...node.small} />
       </Paper>
     ))}
-  </div>
-);
+  </div>;
+}
 
 function getPaintingsStyle(): {} {
   return {
@@ -38,5 +36,3 @@ function getPaintingThumbnailStyle(): {} {
     cursor: 'pointer'
   };
 }
-
-export default Paintings;

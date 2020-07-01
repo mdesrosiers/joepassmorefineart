@@ -1,12 +1,9 @@
 // @flow
-
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { OutboundLink } from 'gatsby-plugin-google-analytics';
-
 import { withStyles } from '@material-ui/core/styles';
-
 import Layout from '../components/layout';
 
 const query = graphql`
@@ -21,9 +18,9 @@ const query = graphql`
   }
 `;
 
-type Props = {
+type Props = {|
   classes: { [string]: {} }
-};
+|};
 
 const styles = (theme) => ({
   contact: {
@@ -47,7 +44,7 @@ const styles = (theme) => ({
   }
 });
 
-const Contact = ({ classes }: Props) => (
+function Contact({ classes }: Props) {
   <StaticQuery
     query={query}
     render={(data) => (
@@ -88,7 +85,7 @@ const Contact = ({ classes }: Props) => (
         </div>
       </Layout>
     )}
-  />
-);
+  />;
+}
 
 export default withStyles(styles)(Contact);

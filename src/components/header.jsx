@@ -1,18 +1,16 @@
 // @flow
-
 import React from 'react';
 import { Link } from 'gatsby';
-
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
-type Props = {
+type Props = {|
   title: string,
   classes: { [string]: {} }
-};
+|};
 
 const styles = () => ({
   appBar: {
@@ -30,7 +28,7 @@ const styles = () => ({
   }
 });
 
-const Header = ({ title, classes }: Props) => (
+function Header({ title, classes }: Props) {
   <AppBar className={classes.appBar}>
     <Toolbar className={classes.toolbar}>
       <Typography variant="h5" color="inherit" noWrap className={classes.toolbarTitle}>
@@ -53,7 +51,7 @@ const Header = ({ title, classes }: Props) => (
         <Button color="inherit">Buy Now</Button>
       </a>
     </Toolbar>
-  </AppBar>
-);
+  </AppBar>;
+}
 
 export default withStyles(styles)(Header);

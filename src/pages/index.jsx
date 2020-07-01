@@ -1,8 +1,6 @@
 // @flow
-
 import React, { PureComponent } from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-
 import Layout from '../components/layout';
 import Hero from '../components/hero';
 import Paintings from '../components/paintings';
@@ -29,14 +27,14 @@ const query = graphql`
   }
 `;
 
-type Props = {
+type Props = {|
   edges: []
-};
+|};
 
-type State = {
+type State = {|
   modalOpened: boolean,
   paintingIndex: number
-};
+|};
 
 export default class Index extends PureComponent<Props, State> {
   constructor(props: Props) {
