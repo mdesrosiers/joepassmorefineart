@@ -29,7 +29,7 @@ export default function Footer() {
         />
       </BottomNavigation>
       <Typography variant="caption" align="center" display="block" color="textSecondary">
-        Copyright &copy; 2019 Joe Passmore. All Rights Reserved.
+        Copyright &copy; 2020 Joe Passmore. All Rights Reserved.
       </Typography>
     </footer>
   );
