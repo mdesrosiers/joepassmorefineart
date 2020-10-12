@@ -37,10 +37,10 @@ function Header({ title, classes }: Props) {
             {title}
           </Link>
         </Typography>
-        <Button color="inherit" component={Link} to="about">
+        <Button color="inherit" component={Link} to="/about">
           About
         </Button>
-        <Button color="inherit" component={Link} to="contact">
+        <Button color="inherit" component={Link} to="/contact">
           Contact
         </Button>
         <a
