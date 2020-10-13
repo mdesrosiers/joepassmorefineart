@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Element } from 'react';
 import Img from 'gatsby-image';
-import Modal from '@material-ui/core/Modal';
+import { Modal as MaterialModal } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 type Props = {|
@@ -29,11 +29,11 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-export default function PaintingModal({ open = false, edge, onClose }: Props): Element<typeof Modal> {
+export default function Modal({ open = false, edge, onClose }: Props): Element<typeof Modal> {
   const classes = useStyles();
 
   return (
-    <Modal
+    <MaterialModal
       open={open}
       onClose={onClose}
       aria-labelledby="simple-modal-title"
@@ -42,6 +42,6 @@ export default function PaintingModal({ open = false, edge, onClose }: Props): E
       <div className={classes.modal}>
         <Img {...edge.node.large} />
       </div>
-    </Modal>
+    </MaterialModal>
   );
 }

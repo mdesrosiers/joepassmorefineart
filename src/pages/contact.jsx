@@ -5,7 +5,8 @@ import { StaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { OutboundLink } from 'gatsby-plugin-google-analytics';
 import { makeStyles } from '@material-ui/core/styles';
-import Layout from '../components/layout';
+
+import Layout from '../components/Layout.jsx';
 
 const query = graphql`
   query {

@@ -1,9 +1,10 @@
 // @flow
 import React from 'react';
-import type { Node } from 'React';
-import Layout from '../components/layout';
+import type { Element } from 'React';
 
-export default function NotFoundPage(): Node {
+import Layout from '../components/Layout.jsx';
+
+export default function NotFound(): Element<typeof Layout> {
   return (
     <Layout>
       <h1>Not Found</h1>

@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import type { Element } from 'react';
 import { StaticQuery, graphql } from 'gatsby';
-import Layout from '../components/layout';
-import Hero from '../components/hero';
-import Paintings from '../components/paintings';
-import PaintingModal from '../components/paintingModal';
+
+import Layout from '../components/Layout.jsx';
+import Hero from '../components/Hero.jsx';
+import Paintings from '../components/Paintings.jsx';
+import Modal from '../components/Modal.jsx';
 
 const query = graphql`
   query {
@@ -43,11 +44,7 @@ export default function Index(): Element<typeof StaticQuery> {
         <Layout>
           <Hero />
           <Paintings edges={data.allFile.edges} onOpenModal={handleOpenModal} />
-          <PaintingModal
-            edge={data.allFile.edges[paintingIndex]}
-            open={modalOpened}
-            onClose={() => setModalOpened(false)}
-          />
+          <Modal edge={data.allFile.edges[paintingIndex]} open={modalOpened} onClose={() => setModalOpened(false)} />
         </Layout>
       )}
     />

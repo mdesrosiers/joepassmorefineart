@@ -4,9 +4,10 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import Theming from './theming';
-import Header from './header';
-import Footer from './footer';
+
+import Theming from './Theming.jsx';
+import Header from './Header.jsx';
+import Footer from './Footer.jsx';
 
 type Props = {|
   children: Node
@@ -44,7 +45,7 @@ export default function Layout({ children }: Props): Element<typeof StaticQuery>
     <StaticQuery
       query={query}
       render={(data) => (
-        <>
+        <Theming>
           <Helmet
             title={data.site.siteMetadata.title}
             meta={[
@@ -57,14 +58,10 @@ export default function Layout({ children }: Props): Element<typeof StaticQuery>
           >
             <html lang="en" />
           </Helmet>
-          <Theming>
-            <>
-              <Header title={data.site.siteMetadata.title} />
-              <main className={classes.main}>{children}</main>
-              <Footer />
-            </>
-          </Theming>
-        </>
+          <Header title={data.site.siteMetadata.title} />
+          <main className={classes.main}>{children}</main>
+          <Footer />
+        </Theming>
       )}
     />
   );
