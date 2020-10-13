@@ -24,13 +24,15 @@ const query = graphql`
 
 const useStyles = makeStyles((theme) => {
   return {
-    width: 'auto',
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    [theme.breakpoints.up(1100 + theme.spacing(6))]: {
-      width: 1100,
-      marginLeft: 'auto',
-      marginRight: 'auto'
+    main: {
+      width: 'auto',
+      marginLeft: theme.spacing(3),
+      marginRight: theme.spacing(3),
+      [theme.breakpoints.up(1100 + theme.spacing(6))]: {
+        width: 1100,
+        marginLeft: 'auto',
+        marginRight: 'auto'
+      }
     }
   };
 });
@@ -58,7 +60,7 @@ export default function Layout({ children }: Props): Element<typeof StaticQuery>
           <Theming>
             <>
               <Header title={data.site.siteMetadata.title} />
-              <main className={classes}>{children}</main>
+              <main className={classes.main}>{children}</main>
               <Footer />
             </>
           </Theming>
