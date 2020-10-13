@@ -1,9 +1,10 @@
 // @flow
 import React from 'react';
+import type { Element } from 'React';
 import { StaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { OutboundLink } from 'gatsby-plugin-google-analytics';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../components/layout';
 
 const query = graphql`
@@ -18,33 +19,33 @@ const query = graphql`
   }
 `;
 
-type Props = {|
-  classes: { [string]: {} }
-|};
-
-const styles = (theme) => ({
-  contact: {
-    marginTop: theme.spacing.unit * 8,
-    display: 'flex'
-  },
-  aside: {
-    flex: '0 0 400px',
-    alignSelf: 'flex-start'
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  cardMedia: {
-    paddingTop: '56.25%' // 16:9
-  },
-  article: {
-    marginLeft: theme.spacing.unit * 5
-  }
+const useStyles = makeStyles((theme) => {
+  return {
+    contact: {
+      marginTop: theme.spacing(8),
+      display: 'flex'
+    },
+    aside: {
+      flex: '0 0 400px',
+      alignSelf: 'flex-start'
+    },
+    card: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    cardMedia: {
+      paddingTop: '56.25%' // 16:9
+    },
+    article: {
+      marginLeft: theme.spacing(5)
+    }
+  };
 });
 
-function Contact({ classes }: Props) {
+export default function Contact(): Element<typeof StaticQuery> {
+  const classes = useStyles();
+
   return (
     <StaticQuery
       query={query}
@@ -89,5 +90,3 @@ function Contact({ classes }: Props) {
     />
   );
 }
-
-export default withStyles(styles)(Contact);

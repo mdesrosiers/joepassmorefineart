@@ -1,8 +1,9 @@
 // @flow
+import type { Element } from 'React';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-export default function Hero() {
+export default function Hero(): Element<'div'> {
   return (
     <div style={getHeroContentStyle()}>
       <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
@@ -16,7 +17,7 @@ export default function Hero() {
   );
 }
 
-function getHeroContentStyle() {
+function getHeroContentStyle(): {} {
   return {
     maxWidth: '600px',
     margin: '0 auto',

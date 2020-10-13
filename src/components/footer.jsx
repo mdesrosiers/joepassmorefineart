@@ -1,11 +1,10 @@
 // @flow
 import React from 'react';
+import type { Element } from 'React';
 import { FaFacebook, FaEtsy, FaInstagram } from 'react-icons/fa';
-import Typography from '@material-ui/core/Typography';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import { Typography, BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 
-export default function Footer() {
+export default function Footer(): Element<'footer'> {
   return (
     <footer style={getFooterStyle()}>
       <BottomNavigation style={getBottomNavigationStyle()}>
@@ -35,13 +34,13 @@ export default function Footer() {
   );
 }
 
-function getFooterStyle() {
+function getFooterStyle(): {} {
   return {
     padding: 40
   };
 }
 
-function getBottomNavigationStyle() {
+function getBottomNavigationStyle(): {} {
   return {
     marginBottom: 25,
     backgroundColor: '#E1E2E1'

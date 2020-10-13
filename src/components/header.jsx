@@ -1,18 +1,15 @@
 // @flow
 import React from 'react';
+import type { Element } from 'react';
 import { Link } from 'gatsby';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
+import { Typography, AppBar, Toolbar, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 type Props = {|
-  title: string,
-  classes: { [string]: {} }
+  title: string
 |};
 
-const styles = () => ({
+const useStyles = makeStyles({
   appBar: {
     position: 'relative'
   },
@@ -28,7 +25,9 @@ const styles = () => ({
   }
 });
 
-function Header({ title, classes }: Props) {
+export default function Header({ title }: Props): Element<typeof AppBar> {
+  const classes = useStyles();
+
   return (
     <AppBar className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
@@ -55,5 +54,3 @@ function Header({ title, classes }: Props) {
     </AppBar>
   );
 }
-
-export default withStyles(styles)(Header);

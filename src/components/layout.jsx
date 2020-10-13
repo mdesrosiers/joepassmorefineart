@@ -1,16 +1,15 @@
 // @flow
-import * as React from 'react';
+import type { Element, Node } from 'React';
+import React from 'react';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { withStyles } from '@material-ui/core/styles';
-import theme from '../utils/theme';
+import { makeStyles } from '@material-ui/core/styles';
+import Theming from './theming';
 import Header from './header';
 import Footer from './footer';
 
 type Props = {|
-  classes: { [string]: {} },
-  children: React.Node
+  children: Node
 |};
 
 const query = graphql`
@@ -23,25 +22,27 @@ const query = graphql`
   }
 `;
 
-const styles = (theme) => ({
-  main: {
+const useStyles = makeStyles((theme) => {
+  return {
     width: 'auto',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(1100 + theme.spacing.unit * 3 * 2)]: {
+    marginLeft: theme.spacing(3),
+    marginRight: theme.spacing(3),
+    [theme.breakpoints.up(1100 + theme.spacing(6))]: {
       width: 1100,
       marginLeft: 'auto',
       marginRight: 'auto'
     }
-  }
+  };
 });
 
-function Layout({ classes, children }: Props) {
+export default function Layout({ children }: Props): Element<typeof StaticQuery> {
+  const classes = useStyles();
+
   return (
     <StaticQuery
       query={query}
       render={(data) => (
-        <MuiThemeProvider theme={theme}>
+        <>
           <Helmet
             title={data.site.siteMetadata.title}
             meta={[
@@ -54,13 +55,15 @@ function Layout({ classes, children }: Props) {
           >
             <html lang="en" />
           </Helmet>
-          <Header title={data.site.siteMetadata.title} />
-          <main className={classes.main}>{children}</main>
-          <Footer />
-        </MuiThemeProvider>
+          <Theming>
+            <>
+              <Header title={data.site.siteMetadata.title} />
+              <main className={classes}>{children}</main>
+              <Footer />
+            </>
+          </Theming>
+        </>
       )}
     />
   );
 }
-
-export default withStyles(styles)(Layout);

@@ -1,8 +1,9 @@
 // @flow
 import React from 'react';
+import type { Element } from 'react';
 import Img from 'gatsby-image';
-import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import { makeStyles } from '@material-ui/core/styles';
 
 type Props = {|
   edge: {
@@ -11,23 +12,26 @@ type Props = {|
     }
   },
   open: boolean,
-  classes: { [string]: {} },
   onClose: () => mixed
 |};
 
-const styles = (theme) => ({
-  modal: {
-    position: 'absolute',
-    top: 50,
-    left: '50%',
-    transform: 'translate(-50%)',
-    width: 900,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5]
-  }
+const useStyles = makeStyles((theme) => {
+  return {
+    modal: {
+      position: 'absolute',
+      top: 50,
+      left: '50%',
+      transform: 'translate(-50%)',
+      width: 900,
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[5]
+    }
+  };
 });
 
-function PaintingModal({ open = false, edge, onClose, classes }: Props) {
+export default function PaintingModal({ open = false, edge, onClose }: Props): Element<typeof Modal> {
+  const classes = useStyles();
+
   return (
     <Modal
       open={open}
@@ -41,5 +45,3 @@ function PaintingModal({ open = false, edge, onClose, classes }: Props) {
     </Modal>
   );
 }
-
-export default withStyles(styles)(PaintingModal);

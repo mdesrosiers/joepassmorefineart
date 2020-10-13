@@ -1,5 +1,6 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
+import type { Element } from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 import Layout from '../components/layout';
 import Hero from '../components/hero';
@@ -27,51 +28,28 @@ const query = graphql`
   }
 `;
 
-type Props = {|
-  edges: []
-|};
+export default function Index(): Element<typeof StaticQuery> {
+  const [modalOpened, setModalOpened] = useState(false);
+  const [paintingIndex, setPaintingIndex] = useState(0);
+  const handleOpenModal = (paintingIndex: number) => {
+    setModalOpened(true);
+    setPaintingIndex(paintingIndex);
+  };
 
-type State = {|
-  modalOpened: boolean,
-  paintingIndex: number
-|};
-
-export default class Index extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      modalOpened: false,
-      paintingIndex: 0
-    };
-  }
-
-  render() {
-    return (
-      <StaticQuery
-        query={query}
-        render={(data) => (
-          <Layout>
-            <Hero />
-            <Paintings edges={data.allFile.edges} onOpenModal={this.handleOpenModal.bind(this)} />
-            {this.renderModal(data.allFile.edges)}
-          </Layout>
-        )}
-      />
-    );
-  }
-
-  renderModal(edges: []) {
-    if (this.state.modalOpened) {
-      const edge = edges[this.state.paintingIndex];
-      return <PaintingModal edge={edge} open={this.state.modalOpened} onClose={this.handleCloseModal.bind(this)} />;
-    }
-  }
-
-  handleOpenModal(paintingIndex: number) {
-    this.setState({ modalOpened: true, paintingIndex });
-  }
-
-  handleCloseModal() {
-    this.setState({ modalOpened: false });
-  }
+  return (
+    <StaticQuery
+      query={query}
+      render={(data) => (
+        <Layout>
+          <Hero />
+          <Paintings edges={data.allFile.edges} onOpenModal={handleOpenModal} />
+          <PaintingModal
+            edge={data.allFile.edges[paintingIndex]}
+            open={modalOpened}
+            onClose={() => setModalOpened(false)}
+          />
+        </Layout>
+      )}
+    />
+  );
 }
