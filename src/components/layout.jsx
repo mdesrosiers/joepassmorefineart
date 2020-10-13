@@ -2,7 +2,7 @@
 import type { Element, Node } from 'React';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { StaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Theming from './Theming.jsx';
@@ -12,16 +12,6 @@ import Footer from './Footer.jsx';
 type Props = {|
   children: Node
 |};
-
-const query = graphql`
-  query LayoutQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`;
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -38,31 +28,30 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-export default function Layout({ children }: Props): Element<typeof StaticQuery> {
+export default function Layout({ children }: Props): Element<typeof Theming> {
   const classes = useStyles();
+  const data = useStaticQuery(graphql`
+    query LayoutQuery {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
 
   return (
-    <StaticQuery
-      query={query}
-      render={(data) => (
-        <Theming>
-          <Helmet
-            title={data.site.siteMetadata.title}
-            meta={[
-              { name: 'description', content: 'Joe Passmore is a painter based in Vancouver, British Columbia' },
-              {
-                name: 'keywords',
-                content: 'artist, painter, paintings, gallery, Vancouver, British Columbia, Canada'
-              }
-            ]}
-          >
-            <html lang="en" />
-          </Helmet>
-          <Header title={data.site.siteMetadata.title} />
-          <main className={classes.main}>{children}</main>
-          <Footer />
-        </Theming>
-      )}
-    />
+    <Theming>
+      <Helmet>
+        <title>{data.site.siteMetadata.title}</title>
+        <meta charSet="utf-8" />
+        <html lang="en" />
+        <meta description="Joe Passmore is a painter based in Vancouver, British Columbia" />
+        <meta keywords="artist, painter, paintings, gallery, Vancouver, British Columbia, Canada" />
+      </Helmet>
+      <Header title={data.site.siteMetadata.title} />
+      <main className={classes.main}>{children}</main>
+      <Footer />
+    </Theming>
   );
 }

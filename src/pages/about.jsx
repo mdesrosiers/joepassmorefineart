@@ -2,22 +2,10 @@
 import React from 'react';
 import type { Element } from 'React';
 import Img from 'gatsby-image';
-import { StaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Layout from '../components/Layout.jsx';
-
-const query = graphql`
-  query {
-    file(relativePath: { eq: "paintings/003.jpg" }) {
-      childImageSharp {
-        fixed(width: 400, height: 300) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
-  }
-`;
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -43,34 +31,40 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
-export default function About(): Element<typeof StaticQuery> {
+export default function About(): Element<typeof Layout> {
   const classes = useStyles();
+  const data = useStaticQuery(graphql`
+    query {
+      file(relativePath: { eq: "paintings/003.jpg" }) {
+        childImageSharp {
+          fixed(width: 400, height: 300) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `);
 
   return (
-    <StaticQuery
-      query={query}
-      render={(data) => (
-        <Layout>
-          <div className={classes.about}>
-            <aside className={classes.aside}>
-              <Img {...data.file.childImageSharp} />
-            </aside>
-            <article className={classes.article}>
-              <h1>About the Artist</h1>
-              <p>
-                Born in Scotland in 1945, I was influenced to paint by my brother, James, and at the age of 15 I did my
-                first painting, a still life in water colour, since then I have painted in oils. The idea of creating a
-                painting from start to finish gives me a real sense of accomplishment and satisfaction.
-              </p>
-              <p>
-                In the sixties I spent some time in Corfu, Greece, where I painted some of my most memorable work. The
-                sunsets and sunrises there gave me a feeling of peace and tranquility that I have tried to express in my
-                paintings.
-              </p>
-            </article>
-          </div>
-        </Layout>
-      )}
-    />
+    <Layout>
+      <div className={classes.about}>
+        <aside className={classes.aside}>
+          <Img {...data.file.childImageSharp} />
+        </aside>
+        <article className={classes.article}>
+          <h1>About the Artist</h1>
+          <p>
+            Born in Scotland in 1945, I was influenced to paint by my brother, James, and at the age of 15 I did my
+            first painting, a still life in water colour, since then I have painted in oils. The idea of creating a
+            painting from start to finish gives me a real sense of accomplishment and satisfaction.
+          </p>
+          <p>
+            In the sixties I spent some time in Corfu, Greece, where I painted some of my most memorable work. The
+            sunsets and sunrises there gave me a feeling of peace and tranquility that I have tried to express in my
+            paintings.
+          </p>
+        </article>
+      </div>
+    </Layout>
   );
 }
