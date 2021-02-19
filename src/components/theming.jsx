@@ -3,7 +3,7 @@ import React from 'react';
 import type { Element, ChildrenArray } from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import theme from '../utils/theme';
+import theme from 'utils/theme';
 
 type Props = {|
   children: ChildrenArray<Element<any>>

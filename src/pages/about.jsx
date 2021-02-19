@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import type { Element } from 'React';
+import type { Element } from 'react';
 import Img from 'gatsby-image';
 import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';

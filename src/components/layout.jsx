@@ -1,6 +1,6 @@
 // @flow
-import type { Element, Node } from 'React';
 import React from 'react';
+import type { Element, Node } from 'react';
 import Helmet from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';

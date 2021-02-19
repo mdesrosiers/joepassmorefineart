@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import type { Element } from 'React';
+import type { Element } from 'react';
 import { FaFacebook, FaEtsy, FaInstagram } from 'react-icons/fa';
 import { Typography, BottomNavigation, BottomNavigationAction } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';

@@ -1,31 +1,12 @@
 {
-  "env": {
-		"browser": true,
-		"es6": true
+	"env": {
+		"browser": true
 	},
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "rules": {
-    "strict": 0
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-		"plugin:flowtype/recommended",
-		"plugin:prettier/recommended",
-		"prettier",
-		"prettier/flowtype",
-		"prettier/react"
-  ],
-  "plugins": ["react", "flowtype", "prettier"],
-  "settings": {
-    "react": {
-      "version": "16.13.1",
-      "flowVersion": "0.135.0"
-    }
-  }
+	"parserOptions": {
+		"ecmaVersion": 2021
+	},
+	"rules": {
+		"react/react-in-jsx-scope": "off",
+		"react/jsx-uses-react": "off"
+	}
 }
