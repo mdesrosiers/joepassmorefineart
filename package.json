@@ -3,6 +3,7 @@
   "description": "Joe Passmore Fine Art",
   "version": "1.0.0",
   "author": "Martin Desrosiers",
+  "private": true,
   "dependencies": {
     "@material-ui/core": "4.11.3",
     "gatsby": "2.32.4",
@@ -34,13 +35,15 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build --verbose",
+    "clean": "gatsby clean",
     "develop": "gatsby develop",
-    "format": "prettier --write '**/*.js'",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
     "flow": "flow --show-all-errors --max-warnings 0"
   },
   "devDependencies": {
     "flow-bin": "0.145.0",
-    "gatsby-cli": "2.19.1",
     "prettier": "2.2.1"
   },
   "repository": {

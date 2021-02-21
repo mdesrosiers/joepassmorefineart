@@ -1,29 +1,29 @@
 // @flow
-import React from 'react';
-import type { Element } from 'react';
-import Img from 'gatsby-image';
-import { useStaticQuery, graphql } from 'gatsby';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import type { Element } from "react";
+import Img from "gatsby-image";
+import { useStaticQuery, graphql } from "gatsby";
+import { makeStyles } from "@material-ui/core/styles";
 
-import Layout from '../components/Layout.jsx';
+import Layout from "../components/layout.jsx";
 
 const useStyles = makeStyles((theme) => {
   return {
     about: {
       marginTop: theme.spacing(8),
-      display: 'flex'
+      display: "flex"
     },
     aside: {
-      flex: '0 0 400px',
-      alignSelf: 'flex-start'
+      flex: "0 0 400px",
+      alignSelf: "flex-start"
     },
     card: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column'
+      height: "100%",
+      display: "flex",
+      flexDirection: "column"
     },
     cardMedia: {
-      paddingTop: '56.25%' // 16:9
+      paddingTop: "56.25%" // 16:9
     },
     article: {
       marginLeft: theme.spacing(5)

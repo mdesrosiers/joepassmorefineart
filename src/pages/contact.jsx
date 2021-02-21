@@ -1,30 +1,30 @@
 // @flow
-import React from 'react';
-import type { Element } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
-import { OutboundLink } from 'gatsby-plugin-google-analytics';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import type { Element } from "react";
+import { useStaticQuery, graphql } from "gatsby";
+import Img from "gatsby-image";
+import { OutboundLink } from "gatsby-plugin-google-analytics";
+import { makeStyles } from "@material-ui/core/styles";
 
-import Layout from '../components/Layout.jsx';
+import Layout from "../components/layout.jsx";
 
 const useStyles = makeStyles((theme) => {
   return {
     contact: {
       marginTop: theme.spacing(8),
-      display: 'flex'
+      display: "flex"
     },
     aside: {
-      flex: '0 0 400px',
-      alignSelf: 'flex-start'
+      flex: "0 0 400px",
+      alignSelf: "flex-start"
     },
     card: {
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column'
+      height: "100%",
+      display: "flex",
+      flexDirection: "column"
     },
     cardMedia: {
-      paddingTop: '56.25%' // 16:9
+      paddingTop: "56.25%" // 16:9
     },
     article: {
       marginLeft: theme.spacing(5)
@@ -55,7 +55,7 @@ export default function Contact(): Element<typeof Layout> {
         <article className={classes.article}>
           <h1>Contact</h1>
           <p>
-            For paper prints or canvas prints or my paintings, visit my shop on Etsy:{' '}
+            For paper prints or canvas prints or my paintings, visit my shop on Etsy:{" "}
             <OutboundLink
               href="https://www.etsy.com/ca/shop/joepassmorefineart"
               rel="noopener noreferrer"
@@ -65,7 +65,7 @@ export default function Contact(): Element<typeof Layout> {
             </OutboundLink>
           </p>
           <p>
-            Follow me on Instagram:{' '}
+            Follow me on Instagram:{" "}
             <OutboundLink
               href="https://www.instagram.com/joepassmorefineart/"
               rel="noopener noreferrer"
@@ -75,7 +75,7 @@ export default function Contact(): Element<typeof Layout> {
             </OutboundLink>
           </p>
           <p>
-            Find me on Facebook:{' '}
+            Find me on Facebook:{" "}
             <OutboundLink href="https://www.facebook.com/joe.passmore.33" rel="noopener noreferrer" target="_blank">
               joe.passmore.33
             </OutboundLink>

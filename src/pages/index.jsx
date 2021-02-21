@@ -1,13 +1,13 @@
 // @flow
-import React from 'react';
-import { useState } from 'react';
-import type { Element } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import React from "react";
+import { useState } from "react";
+import type { Element } from "react";
+import { useStaticQuery, graphql } from "gatsby";
 
-import Layout from '../components/Layout.jsx';
-import Hero from '../components/Hero.jsx';
-import Paintings from '../components/Paintings.jsx';
-import Modal from '../components/Modal.jsx';
+import Layout from "../components/layout.jsx";
+import Hero from "../components/hero.jsx";
+import Paintings from "../components/paintings.jsx";
+import Modal from "../components/modal.jsx";
 
 export default function Index(): Element<typeof Layout> {
   const [modalOpened, setModalOpened] = useState(false);

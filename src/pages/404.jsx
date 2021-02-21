@@ -1,8 +1,8 @@
 // @flow
-import React from 'react';
-import type { Element } from 'react';
+import React from "react";
+import type { Element } from "react";
 
-import Layout from '../components/Layout.jsx';
+import Layout from "../components/layout.jsx";
 
 export default function NotFound(): Element<typeof Layout> {
   return (

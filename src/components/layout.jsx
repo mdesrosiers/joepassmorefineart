@@ -1,13 +1,13 @@
 // @flow
-import React from 'react';
-import type { Element, Node } from 'react';
-import Helmet from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import type { Element, Node } from "react";
+import Helmet from "react-helmet";
+import { useStaticQuery, graphql } from "gatsby";
+import { makeStyles } from "@material-ui/core/styles";
 
-import Theming from './Theming.jsx';
-import Header from './Header.jsx';
-import Footer from './Footer.jsx';
+import Theming from "./theming.jsx";
+import Header from "./header.jsx";
+import Footer from "./footer.jsx";
 
 type Props = {|
   children: Node
@@ -16,13 +16,13 @@ type Props = {|
 const useStyles = makeStyles((theme) => {
   return {
     main: {
-      width: 'auto',
+      width: "auto",
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(3),
       [theme.breakpoints.up(1100 + theme.spacing(6))]: {
         width: 1100,
-        marginLeft: 'auto',
-        marginRight: 'auto'
+        marginLeft: "auto",
+        marginRight: "auto"
       }
     }
   };
