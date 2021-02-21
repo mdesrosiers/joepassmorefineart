@@ -54,7 +54,8 @@
     "flow-bin": "0.135.0",
     "gatsby-cli": "2.12.107",
     "prettier": "2.1.2",
-    "webpack": "5.0.0"
+    "webpack": "5.0.0",
+    "webpack-cli": "4.5.0"
   },
   "repository": {
     "type": "git",
