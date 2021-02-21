@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import type { Element } from 'react';
+import type { Element } from 'React';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 

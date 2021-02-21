@@ -44,6 +44,7 @@ module.exports = {
         cookieDomain: 'joepassmorefineart.com'
       }
     },
+    'gatsby-plugin-eslint',
     'gatsby-plugin-flow',
     'gatsby-plugin-offline',
     'gatsby-plugin-netlify'

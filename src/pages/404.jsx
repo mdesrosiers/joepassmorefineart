@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import type { Element } from 'react';
+import type { Element } from 'React';
 
 import Layout from '../components/Layout.jsx';
 
