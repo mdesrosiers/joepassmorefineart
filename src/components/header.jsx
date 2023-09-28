@@ -2,14 +2,14 @@
 import React from 'react';
 import type { Element } from 'react';
 import { Link } from 'gatsby';
-import { Typography, AppBar, Toolbar, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography, AppBar, Toolbar, Button } from '@mui/material';
+import {css} from '@emotion/react'; 
 
 type Props = {|
   title: string
 |};
 
-const useStyles = makeStyles({
+const headerStyle = css`
   appBar: {
     position: 'relative'
   },
@@ -23,16 +23,14 @@ const useStyles = makeStyles({
     textDecoration: 'none',
     color: 'inherit'
   }
-});
+`;
 
 export default function Header({ title }: Props): Element<typeof AppBar> {
-  const classes = useStyles();
-
   return (
-    <AppBar className={classes.appBar}>
-      <Toolbar className={classes.toolbar}>
-        <Typography variant="h5" color="inherit" noWrap className={classes.toolbarTitle}>
-          <Link to="/" className={classes.headerLink}>
+    <AppBar css={headerStyle}>
+      <Toolbar>
+        <Typography variant="h5" color="inherit" noWrap>
+          <Link to="/">
             {title}
           </Link>
         </Typography>
@@ -46,7 +44,6 @@ export default function Header({ title }: Props): Element<typeof AppBar> {
           href="https://www.etsy.com/ca/shop/joepassmorefineart"
           rel="noopener noreferrer"
           target="_blank"
-          className={classes.headerLink}
         >
           <Button color="inherit">Buy Now</Button>
         </a>

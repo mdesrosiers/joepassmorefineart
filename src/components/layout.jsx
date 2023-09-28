@@ -3,7 +3,7 @@ import React from "react";
 import type { Element, Node } from "react";
 import Helmet from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
-import { makeStyles } from "@material-ui/core/styles";
+import {css} from '@emotion/react'; 
 
 import Theming from "./theming.jsx";
 import Header from "./header.jsx";
@@ -13,23 +13,18 @@ type Props = {|
   children: Node
 |};
 
-const useStyles = makeStyles((theme) => {
-  return {
-    main: {
-      width: "auto",
-      marginLeft: theme.spacing(3),
-      marginRight: theme.spacing(3),
-      [theme.breakpoints.up(1100 + theme.spacing(6))]: {
-        width: 1100,
-        marginLeft: "auto",
-        marginRight: "auto"
-      }
-    }
-  };
-});
+const layoutStyle = css`
+	width: "auto",
+	marginLeft: theme.spacing(3),
+	marginRight: theme.spacing(3),
+	[theme.breakpoints.up(1100 + theme.spacing(6))]: {
+	width: 1100,
+	marginLeft: "auto",
+	marginRight: "auto"
+	}
+`;
 
 export default function Layout({ children }: Props): Element<typeof Theming> {
-  const classes = useStyles();
   const data = useStaticQuery(graphql`
     query LayoutQuery {
       site {
@@ -50,7 +45,7 @@ export default function Layout({ children }: Props): Element<typeof Theming> {
         <meta keywords="artist, painter, paintings, gallery, Vancouver, British Columbia, Canada" />
       </Helmet>
       <Header title={data.site.siteMetadata.title} />
-      <main className={classes.main}>{children}</main>
+      <main css={layoutStyle}>{children}</main>
       <Footer />
     </Theming>
   );

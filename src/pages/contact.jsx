@@ -4,16 +4,13 @@ import type { Element } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 import { OutboundLink } from "gatsby-plugin-google-analytics";
-import { makeStyles } from "@material-ui/core/styles";
+import {css} from '@emotion/react'; 
 
 import Layout from "../components/layout.jsx";
 
-const useStyles = makeStyles((theme) => {
-  return {
-    contact: {
-      marginTop: theme.spacing(8),
-      display: "flex"
-    },
+const contactStyle = css`
+	marginTop: theme.spacing(8),
+	display: "flex",
     aside: {
       flex: "0 0 400px",
       alignSelf: "flex-start"
@@ -29,11 +26,9 @@ const useStyles = makeStyles((theme) => {
     article: {
       marginLeft: theme.spacing(5)
     }
-  };
-});
+`;
 
 export default function Contact(): Element<typeof Layout> {
-  const classes = useStyles();
   const data = useStaticQuery(graphql`
     query {
       file(relativePath: { eq: "paintings/028.jpg" }) {
@@ -48,11 +43,11 @@ export default function Contact(): Element<typeof Layout> {
 
   return (
     <Layout>
-      <div className={classes.contact}>
-        <aside className={classes.aside}>
+      <div css={contactStyle}>
+        <aside>
           <Img {...data.file.childImageSharp} />
         </aside>
-        <article className={classes.article}>
+        <article>
           <h1>Contact</h1>
           <p>
             For paper prints or canvas prints or my paintings, visit my shop on Etsy:{" "}

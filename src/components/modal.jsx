@@ -2,8 +2,8 @@
 import React from 'react';
 import type { Element } from 'react';
 import Img from 'gatsby-image';
-import { Modal as MaterialModal } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Modal as MaterialModal } from '@mui/material';
+import {css} from '@emotion/react'; 
 
 type Props = {|
   edge: {
@@ -15,23 +15,17 @@ type Props = {|
   onClose: () => mixed
 |};
 
-const useStyles = makeStyles((theme) => {
-  return {
-    modal: {
-      position: 'absolute',
-      top: 50,
-      left: '50%',
-      transform: 'translate(-50%)',
-      width: 900,
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[5]
-    }
-  };
-});
+const modalStyle = css`
+	position: 'absolute',
+	top: 50,
+	left: '50%',
+	transform: 'translate(-50%)',
+	width: 900,
+	backgroundColor: theme.palette.background.paper,
+	boxShadow: theme.shadows[5]
+`;
 
 export default function Modal({ open = false, edge, onClose }: Props): Element<typeof Modal> {
-  const classes = useStyles();
-
   return (
     <MaterialModal
       open={open}
@@ -39,7 +33,7 @@ export default function Modal({ open = false, edge, onClose }: Props): Element<t
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
     >
-      <div className={classes.modal}>
+      <div css={modalStyle}>
         <Img {...edge.node.large} />
       </div>
     </MaterialModal>

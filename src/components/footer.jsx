@@ -2,25 +2,21 @@
 import React from 'react';
 import type { Element } from 'react';
 import { FaFacebook, FaEtsy, FaInstagram } from 'react-icons/fa';
-import { Typography, BottomNavigation, BottomNavigationAction } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import {css} from '@emotion/react'; 
 
-const useStyles = makeStyles({
-  footer: {
-    padding: 40
-  },
-  bottomNavigation: {
-    marginBottom: 25,
-    backgroundColor: '#E1E2E1'
-  }
-});
+const footerStyle = css`
+	padding: 40,
+	bottomNavigation: {
+		marginBottom: 25,
+		backgroundColor: '#E1E2E1'
+	}
+`;
 
 export default function Footer(): Element<'footer'> {
-  const classes = useStyles();
-
   return (
-    <footer className={classes.footer}>
-      <BottomNavigation className={classes.bottomNavigation}>
+    <footer css={footerStyle}>
+      <BottomNavigation>
         <BottomNavigationAction
           href="https://www.facebook.com/joe.passmore.33"
           rel="noopener noreferrer"

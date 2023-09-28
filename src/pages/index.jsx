@@ -1,6 +1,5 @@
 // @flow
-import React from "react";
-import { useState } from "react";
+import React, { useState} from "react";
 import type { Element } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 
@@ -18,23 +17,23 @@ export default function Index(): Element<typeof Layout> {
   };
   const data = useStaticQuery(graphql`
     query {
-      allFile(filter: { relativePath: { regex: "/paintings/" } }, sort: { fields: [name], order: DESC }) {
-        edges {
-          node {
-            small: childImageSharp {
-              fixed(width: 300, height: 200) {
-                ...GatsbyImageSharpFixed
-              }
-            }
-            large: childImageSharp {
-              fluid(maxWidth: 900, maxHeight: 650) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-        }
-      }
-    }
+		allFile(filter: {relativePath: {regex: "/paintings/"}}, sort: {name: DESC}) {
+		  edges {
+			node {
+			  small: childImageSharp {
+				fixed(width: 300, height: 200) {
+				  ...GatsbyImageSharpFixed
+				}
+			  }
+			  large: childImageSharp {
+				fluid(maxWidth: 900, maxHeight: 650) {
+				  ...GatsbyImageSharpFluid
+				}
+			  }
+			}
+		  }
+		}
+	  }
   `);
 
   return (

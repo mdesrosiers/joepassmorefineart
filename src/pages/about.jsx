@@ -3,16 +3,13 @@ import React from "react";
 import type { Element } from "react";
 import Img from "gatsby-image";
 import { useStaticQuery, graphql } from "gatsby";
-import { makeStyles } from "@material-ui/core/styles";
+import {css} from '@emotion/react'; 
 
 import Layout from "../components/layout.jsx";
 
-const useStyles = makeStyles((theme) => {
-  return {
-    about: {
-      marginTop: theme.spacing(8),
-      display: "flex"
-    },
+const aboutStyle = css`
+	marginTop: theme.spacing(8),
+	display: "flex",
     aside: {
       flex: "0 0 400px",
       alignSelf: "flex-start"
@@ -28,11 +25,9 @@ const useStyles = makeStyles((theme) => {
     article: {
       marginLeft: theme.spacing(5)
     }
-  };
-});
+`;
 
 export default function About(): Element<typeof Layout> {
-  const classes = useStyles();
   const data = useStaticQuery(graphql`
     query {
       file(relativePath: { eq: "paintings/003.jpg" }) {
@@ -47,11 +42,11 @@ export default function About(): Element<typeof Layout> {
 
   return (
     <Layout>
-      <div className={classes.about}>
-        <aside className={classes.aside}>
+      <div css={aboutStyle}>
+        <aside>
           <Img {...data.file.childImageSharp} />
         </aside>
-        <article className={classes.article}>
+        <article>
           <h1>About the Artist</h1>
           <p>
             Born in Scotland in 1945, I was influenced to paint by my brother, James, and at the age of 15 I did my

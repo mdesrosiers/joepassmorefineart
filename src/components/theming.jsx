@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import type { Element, ChildrenArray } from "react";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@mui/material";
 
 import theme from "../utils/theme";
 
