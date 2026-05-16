@@ -30,3 +30,12 @@ test("Direct visit to /paintings/042 renders standalone page (no lightbox)", asy
   await expect(page.locator("article img")).toBeVisible();
   await expect(page.locator("#lightbox")).toHaveCount(0);
 });
+
+test("Esc closes the lightbox AND restores the URL", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("a[data-painting-slug='121']").click();
+  await expect(page).toHaveURL(/\/paintings\/121/);
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#lightbox")).not.toBeVisible();
+  await expect(page).toHaveURL("/");
+});

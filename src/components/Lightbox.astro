@@ -139,6 +139,7 @@ const items = paintings.map((p) => ({
       this.dialog.addEventListener("close", () => {
         document.documentElement.style.overflow = "";
         this.originatingThumb?.focus();
+        if (history.state?.lb) history.back();
       });
     }
 
@@ -237,7 +238,6 @@ const items = paintings.map((p) => ({
 
     private close() {
       this.dialog.close();
-      if (history.state?.lb) history.back();
     }
   }
 
