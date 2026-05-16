@@ -23,11 +23,11 @@
       "automerge": false
     },
     {
-      "matchPackagePatterns": ["^@astrojs/"],
+      "matchPackageNames": ["/^@astrojs\\//"],
       "groupName": "Astro integrations"
     },
     {
-      "matchPackagePatterns": ["^@fontsource-variable/"],
+      "matchPackageNames": ["/^@fontsource-variable\\//"],
       "groupName": "Fontsource fonts"
     },
     {
