@@ -1,0 +1,68 @@
+---
+import { Image } from "astro:assets";
+import { paintings, getPaintingImage } from "~/data/paintings";
+
+const items = paintings.map((p) => ({
+  ...p,
+  image: getPaintingImage(p.slug)!,
+}));
+---
+
+<dialog
+  id="lightbox"
+  class="m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden border-0 bg-[var(--color-bg)]/95 p-0 backdrop:bg-transparent"
+  aria-label="Painting viewer"
+>
+  <div class="relative flex h-full w-full items-center justify-center">
+    <button
+      type="button"
+      data-lb-close
+      class="absolute top-3 right-3 z-10 grid h-12 w-12 place-items-center rounded-full bg-[var(--color-surface)] text-[var(--color-text)]"
+      aria-label="Close"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      data-lb-prev
+      class="absolute left-3 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-[var(--color-surface)] text-[var(--color-text)]"
+      aria-label="Previous painting"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      data-lb-next
+      class="absolute right-3 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-[var(--color-surface)] text-[var(--color-text)]"
+      aria-label="Next painting"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+    <div
+      class="flex h-full w-full items-center justify-center"
+      data-lb-image-container
+      style="touch-action: pinch-zoom;"
+    >
+      {/* Image is rendered into here by JS — we render all picture sources as a hidden lookup table */}
+    </div>
+  </div>
+  <div hidden data-lb-sources>
+    {items.map((p) => (
+      <Image
+        data-slug={p.slug}
+        src={p.image}
+        alt={p.alt}
+        widths={[640, 960, 1280, 1600]}
+        sizes="(min-width: 1280px) 1280px, 100vw"
+        loading="lazy"
+      />
+    ))}
+  </div>
+</dialog>
