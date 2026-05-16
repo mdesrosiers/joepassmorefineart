@@ -1,0 +1,54 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { getPaintingImage } from "~/data/paintings";
+import { site } from "~/data/site";
+
+const accent = getPaintingImage("028")!;
+---
+
+<Layout
+  title="Contact"
+  description="Buy prints on Etsy. Follow on Instagram and Facebook."
+  path="/contact"
+>
+  <div class="grid gap-8 md:grid-cols-[400px_1fr] md:items-start">
+    <Image
+      src={accent}
+      alt="Painting by Joe Passmore"
+      widths={[400, 800]}
+      sizes="(min-width: 768px) 400px, 100vw"
+      class="w-full"
+    />
+    <article>
+      <h1 class="font-serif text-4xl">Contact</h1>
+      <p class="mt-4">
+        For paper prints or canvas prints of my paintings, visit my shop on Etsy:
+        {" "}
+        <a href={site.social.etsy} rel="noopener noreferrer" target="_blank">
+          joepassmorefineart
+        </a>
+      </p>
+      <p class="mt-4">
+        Follow me on Instagram:{" "}
+        <a
+          href={site.social.instagram}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          @joepassmorefineart
+        </a>
+      </p>
+      <p class="mt-4">
+        Find me on Facebook:{" "}
+        <a
+          href={site.social.facebook}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          joe.passmore.33
+        </a>
+      </p>
+    </article>
+  </div>
+</Layout>
