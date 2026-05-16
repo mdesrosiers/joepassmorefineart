@@ -1,16 +1,30 @@
+# Dependencies and build output
 node_modules/
 dist/
 .astro/
 .cache/
-.DS_Store
-*.log
-.env
-.env.local
-.env.*.local
-.netlify/
+*.tsbuildinfo
+
+# Test output
 test-results/
 playwright-report/
 playwright/.cache/
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Tooling
+.netlify/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
 
 # Claude Code — local settings only; shared settings.json (if any) stays committed
 .claude/settings.local.json
