@@ -11,3 +11,7 @@ dist/
 test-results/
 playwright-report/
 playwright/.cache/
+
+# Claude Code — local settings only; shared settings.json (if any) stays committed
+.claude/settings.local.json
+.claude/.credentials.json
