@@ -27,7 +27,7 @@ function buildPaintings(): Painting[] {
         alt: `Painting ${slug}`,
       } satisfies Painting;
     })
-    .sort((a, b) => b.slug.localeCompare(a.slug));
+    .sort((a, b) => b.slug.localeCompare(a.slug, undefined, { numeric: true }));
   return entries;
 }
 
