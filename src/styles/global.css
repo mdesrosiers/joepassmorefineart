@@ -49,6 +49,15 @@
     color: var(--color-accent-hover);
     text-decoration: underline;
   }
+  /* Inline links inside body prose get an underline so they meet WCAG 1.4.1
+     (color is not the only visual cue). Header/footer/nav links opt out
+     by living outside <main> or by using utility classes. */
+  main p a,
+  main li a,
+  main article a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
   *:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
