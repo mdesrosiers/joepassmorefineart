@@ -1,0 +1,52 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import { getPaintingImage } from "~/data/paintings";
+import { site } from "~/data/site";
+
+const portrait = getPaintingImage("003")!;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.title,
+  birthDate: "1945",
+  birthPlace: "Scotland",
+  jobTitle: "Painter",
+  url: site.url,
+  sameAs: [site.social.facebook, site.social.instagram, site.social.etsy],
+};
+---
+
+<Layout
+  title="About"
+  description="Born in Scotland in 1945. Self-taught painter working primarily in oils. Influenced by his time in Corfu, Greece in the 1960s."
+  path="/about"
+  jsonLd={jsonLd}
+>
+  <div class="grid gap-8 md:grid-cols-[400px_1fr] md:items-start">
+    <Image
+      src={portrait}
+      alt="Painting by Joe Passmore"
+      widths={[400, 800]}
+      sizes="(min-width: 768px) 400px, 100vw"
+      class="w-full"
+    />
+    <article class="prose">
+      <h1 class="font-serif text-4xl">About the Artist</h1>
+      <p class="mt-4">
+        Born in Scotland in 1945, I was influenced to paint by my brother,
+        James, and at the age of 15 I did my first painting, a still life in
+        water colour, since then I have painted in oils. The idea of creating
+        a painting from start to finish gives me a real sense of accomplishment
+        and satisfaction.
+      </p>
+      <p class="mt-4">
+        In the sixties I spent some time in Corfu, Greece, where I painted
+        some of my most memorable work. The sunsets and sunrises there gave
+        me a feeling of peace and tranquility that I have tried to express
+        in my paintings.
+      </p>
+    </article>
+  </div>
+</Layout>
