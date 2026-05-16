@@ -17,6 +17,7 @@
     "format": "prettier --write \"**/*.{astro,ts,tsx,css,md,json,yaml,yml}\"",
     "test": "playwright test",
     "test:unit": "vitest run",
+    "csp-hash": "node scripts/compute-csp-hash.mjs",
     "prepare": "husky"
   },
   "dependencies": {
