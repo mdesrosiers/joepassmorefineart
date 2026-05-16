@@ -5,6 +5,8 @@
 [build.environment]
   NODE_VERSION = "20"
   PNPM_VERSION = "9"
+  NPM_CONFIG_PRODUCTION = "false"
+  NODE_ENV = "development"
 
 [[headers]]
   for = "/_astro/*"
