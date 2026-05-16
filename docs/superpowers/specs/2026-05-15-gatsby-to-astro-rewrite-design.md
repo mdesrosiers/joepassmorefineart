@@ -36,15 +36,15 @@ The current site is on Gatsby 2.32 (released 2021), pinned to Node 14.15.5, depe
 
 ### Out of scope (explicit drops)
 
-| Dropped | Reason |
-|---|---|
-| Etsy metadata enrichment (titles, descriptions, prices) | Separate research project — see "Future work" below. The data model is shaped to accept this enrichment cleanly when it happens. |
-| CMS / authoring tools | User confirmed they no longer add new paintings. |
-| Contact form | User opted to keep social-link list as today. |
-| Search / filter | Not useful without painting titles; reconsider after Etsy enrichment. |
-| Service worker / offline mode (PWA) | `gatsby-plugin-offline` adds caching complexity for marginal benefit on a fully static gallery. |
-| Google Analytics | The existing `UA-127331168-1` is a deprecated Universal Analytics property collecting no data. Defer GA4 / Plausible / Cloudflare Analytics decision to a future task. |
-| Google Optimize (`GTM-M2ZM6SB`) | Service was sunset by Google in 2023. |
+| Dropped                                                 | Reason                                                                                                                                                                 |
+| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Etsy metadata enrichment (titles, descriptions, prices) | Separate research project — see "Future work" below. The data model is shaped to accept this enrichment cleanly when it happens.                                       |
+| CMS / authoring tools                                   | User confirmed they no longer add new paintings.                                                                                                                       |
+| Contact form                                            | User opted to keep social-link list as today.                                                                                                                          |
+| Search / filter                                         | Not useful without painting titles; reconsider after Etsy enrichment.                                                                                                  |
+| Service worker / offline mode (PWA)                     | `gatsby-plugin-offline` adds caching complexity for marginal benefit on a fully static gallery.                                                                        |
+| Google Analytics                                        | The existing `UA-127331168-1` is a deprecated Universal Analytics property collecting no data. Defer GA4 / Plausible / Cloudflare Analytics decision to a future task. |
+| Google Optimize (`GTM-M2ZM6SB`)                         | Service was sunset by Google in 2023.                                                                                                                                  |
 
 ## High-level architecture
 
@@ -64,23 +64,24 @@ The site is fully prerendered. The lightbox is the only interactive piece. Galle
 
 ## Stack
 
-| Layer | Choice | Replaces |
-|---|---|---|
-| Framework | Astro 5 (`output: 'static'`) | Gatsby 2.32 |
-| Language | TypeScript | Flow |
-| Styling | Tailwind CSS 4 (via `@tailwindcss/vite`) | Material UI v4 |
-| Image pipeline | Astro `<Image>` / `<Picture>` (Sharp) | gatsby-image / gatsby-plugin-sharp |
-| Fonts | `@fontsource-variable/fraunces` (headings), `@fontsource-variable/inter` (body), self-hosted | typography + typography-theme-noriega |
-| Icons | Inline SVG | react-icons |
-| Sitemap | `@astrojs/sitemap` | gatsby-plugin-sitemap |
-| `<head>` management | Astro native | react-helmet |
-| Package manager | pnpm | npm |
-| Node | 20 LTS | 14.15.5 |
-| Hosting | Netlify (unchanged) | Netlify |
+| Layer               | Choice                                                                                       | Replaces                              |
+| ------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------- |
+| Framework           | Astro 5 (`output: 'static'`)                                                                 | Gatsby 2.32                           |
+| Language            | TypeScript                                                                                   | Flow                                  |
+| Styling             | Tailwind CSS 4 (via `@tailwindcss/vite`)                                                     | Material UI v4                        |
+| Image pipeline      | Astro `<Image>` / `<Picture>` (Sharp)                                                        | gatsby-image / gatsby-plugin-sharp    |
+| Fonts               | `@fontsource-variable/fraunces` (headings), `@fontsource-variable/inter` (body), self-hosted | typography + typography-theme-noriega |
+| Icons               | Inline SVG                                                                                   | react-icons                           |
+| Sitemap             | `@astrojs/sitemap`                                                                           | gatsby-plugin-sitemap                 |
+| `<head>` management | Astro native                                                                                 | react-helmet                          |
+| Package manager     | pnpm                                                                                         | npm                                   |
+| Node                | 20 LTS                                                                                       | 14.15.5                               |
+| Hosting             | Netlify (unchanged)                                                                          | Netlify                               |
 
 ### Dependencies (final `package.json`)
 
 Runtime:
+
 - `astro` (5.x)
 - `@astrojs/sitemap`
 - `@tailwindcss/vite`
@@ -90,6 +91,7 @@ Runtime:
 - `sharp` (declared explicitly)
 
 Dev:
+
 - `typescript`
 - `prettier`
 - `prettier-plugin-astro`
@@ -156,9 +158,9 @@ Files removed from the current repo: `gatsby-browser.js`, `gatsby-config.js`, `g
 ```ts
 // src/data/paintings.ts
 export type Painting = {
-  slug: string;          // "042" — used in URL
-  filename: string;      // "042.jpg"
-  alt: string;           // accessibility text; default `Painting ${slug}`
+  slug: string; // "042" — used in URL
+  filename: string; // "042.jpg"
+  alt: string; // accessibility text; default `Painting ${slug}`
 
   // Reserved for future Etsy enrichment — all optional:
   title?: string;
@@ -177,13 +179,13 @@ When painting metadata is added in a future project, every detail-page UI elemen
 
 ## Routing
 
-| URL | File | Notes |
-|---|---|---|
-| `/` | `src/pages/index.astro` | Hero copy + responsive thumbnail grid + lightbox |
-| `/about` | `src/pages/about.astro` | Bio (preserved verbatim) + accent painting |
-| `/contact` | `src/pages/contact.astro` | Social links (preserved verbatim) + accent painting |
+| URL                 | File                               | Notes                                                  |
+| ------------------- | ---------------------------------- | ------------------------------------------------------ |
+| `/`                 | `src/pages/index.astro`            | Hero copy + responsive thumbnail grid + lightbox       |
+| `/about`            | `src/pages/about.astro`            | Bio (preserved verbatim) + accent painting             |
+| `/contact`          | `src/pages/contact.astro`          | Social links (preserved verbatim) + accent painting    |
 | `/paintings/<slug>` | `src/pages/paintings/[slug].astro` | Generated via `getStaticPaths()` for all 121 paintings |
-| `/404` | `src/pages/404.astro` | "Not found" |
+| `/404`              | `src/pages/404.astro`              | "Not found"                                            |
 
 Detail pages render a full-width responsive image, optional title/description if present, prev/next links to neighboring paintings, and a "Back to gallery" link.
 
@@ -195,32 +197,32 @@ Implementation: a single TypeScript class in a `<script>` block in `Lightbox.ast
 
 ### Behavior
 
-| Event | Behavior |
-|---|---|
-| Click thumbnail (with JS) | `event.preventDefault()`, open dialog, `history.pushState` to `/paintings/<slug>` |
-| Click thumbnail (without JS) | Browser navigates to `/paintings/<slug>` |
-| Click prev/next | Swap image, `history.replaceState` (so back doesn't walk every painting) |
-| Click outside image | Close lightbox, `history.back()` to the gallery URL |
-| Close button | Close lightbox, `history.back()` to the gallery URL |
-| `Esc` key | Close (native `<dialog>` behavior) |
-| `←` / `→` keys | Prev / next |
-| Tab | Cycles close + prev + next; focus trap |
-| Lightbox close | Focus returns to originating thumbnail |
-| Swipe left/right (touch) | Prev / next, with edge-guard for iOS back gesture |
-| `popstate` | Sync lightbox to URL — `/` closes it, `/paintings/<slug>` opens that painting |
-| Lightbox open | Body scroll locked via `overflow: hidden` on `<html>` |
-| `prefers-reduced-motion` | Disables transitions; image shows instantly |
+| Event                        | Behavior                                                                          |
+| ---------------------------- | --------------------------------------------------------------------------------- |
+| Click thumbnail (with JS)    | `event.preventDefault()`, open dialog, `history.pushState` to `/paintings/<slug>` |
+| Click thumbnail (without JS) | Browser navigates to `/paintings/<slug>`                                          |
+| Click prev/next              | Swap image, `history.replaceState` (so back doesn't walk every painting)          |
+| Click outside image          | Close lightbox, `history.back()` to the gallery URL                               |
+| Close button                 | Close lightbox, `history.back()` to the gallery URL                               |
+| `Esc` key                    | Close (native `<dialog>` behavior)                                                |
+| `←` / `→` keys               | Prev / next                                                                       |
+| Tab                          | Cycles close + prev + next; focus trap                                            |
+| Lightbox close               | Focus returns to originating thumbnail                                            |
+| Swipe left/right (touch)     | Prev / next, with edge-guard for iOS back gesture                                 |
+| `popstate`                   | Sync lightbox to URL — `/` closes it, `/paintings/<slug>` opens that painting     |
+| Lightbox open                | Body scroll locked via `overflow: hidden` on `<html>`                             |
+| `prefers-reduced-motion`     | Disables transitions; image shows instantly                                       |
 
 ### Mobile-specific behavior
 
-| Concern | Handling |
-|---|---|
-| iOS edge-swipe-back conflict | Swipe detection ignores horizontal motion starting in leftmost ~20px |
-| Vertical swipes | Pass through; never trapped |
-| Pinch-to-zoom on image | `touch-action: pinch-zoom` enabled (improvement over current MUI modal) |
-| iOS Safari address bar resize | Overlay sized in `100dvh`, not `100vh` |
-| Hit targets | All buttons ≥ 48×48 CSS px |
-| Hover-only prev/next | Always shown on touch devices |
+| Concern                       | Handling                                                                |
+| ----------------------------- | ----------------------------------------------------------------------- |
+| iOS edge-swipe-back conflict  | Swipe detection ignores horizontal motion starting in leftmost ~20px    |
+| Vertical swipes               | Pass through; never trapped                                             |
+| Pinch-to-zoom on image        | `touch-action: pinch-zoom` enabled (improvement over current MUI modal) |
+| iOS Safari address bar resize | Overlay sized in `100dvh`, not `100vh`                                  |
+| Hit targets                   | All buttons ≥ 48×48 CSS px                                              |
+| Hover-only prev/next          | Always shown on touch devices                                           |
 
 ### Preloading
 
@@ -236,13 +238,13 @@ A shared `SeoHead.astro` component drives all `<head>` metadata. Every page pass
 
 ### Per-page metadata
 
-| Page | `<title>` | `<meta description>` |
-|---|---|---|
-| `/` | `Joe Passmore — Fine Art` | "Paintings by Joe Passmore, a Vancouver-based painter. Landscapes, figures, and scenes from a lifetime of work." |
-| `/about` | `About — Joe Passmore` | "Born in Scotland in 1945. Self-taught painter working primarily in oils. Influenced by his time in Corfu, Greece in the 1960s." |
-| `/contact` | `Contact — Joe Passmore` | "Buy prints on Etsy. Follow on Instagram and Facebook." |
-| `/paintings/<slug>` | `Painting <slug> — Joe Passmore` (uses real `title` once Etsy enrichment ships) | Bio-style fallback; uses real `description` once enriched |
-| `/404` | `Page not found — Joe Passmore` | "This page doesn't exist." |
+| Page                | `<title>`                                                                       | `<meta description>`                                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                 | `Joe Passmore — Fine Art`                                                       | "Paintings by Joe Passmore, a Vancouver-based painter. Landscapes, figures, and scenes from a lifetime of work."                 |
+| `/about`            | `About — Joe Passmore`                                                          | "Born in Scotland in 1945. Self-taught painter working primarily in oils. Influenced by his time in Corfu, Greece in the 1960s." |
+| `/contact`          | `Contact — Joe Passmore`                                                        | "Buy prints on Etsy. Follow on Instagram and Facebook."                                                                          |
+| `/paintings/<slug>` | `Painting <slug> — Joe Passmore` (uses real `title` once Etsy enrichment ships) | Bio-style fallback; uses real `description` once enriched                                                                        |
+| `/404`              | `Page not found — Joe Passmore`                                                 | "This page doesn't exist."                                                                                                       |
 
 ### Open Graph + Twitter Card
 
@@ -254,7 +256,8 @@ Every page emits:
 <meta property="og:image" content="https://joepassmorefineart.com/og/<page>.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:type" content="website" /> <!-- "article" not appropriate -->
+<meta property="og:type" content="website" />
+<!-- "article" not appropriate -->
 <meta property="og:url" content="..." />
 <meta name="twitter:card" content="summary_large_image" />
 ```
@@ -263,11 +266,11 @@ Painting detail pages use the painting itself as `og:image` — Astro's `<Image>
 
 ### JSON-LD structured data
 
-| Page | Schema |
-|---|---|
-| Site-wide (in `Layout`) | `WebSite` (name, URL, sameAs links to social profiles) |
-| `/about` | `Person` (name "Joe Passmore", birthDate "1945", birthPlace "Scotland", sameAs links) |
-| `/paintings/<slug>` | `VisualArtwork` (name, image, creator → Person, artform "Painting", artMedium when known, dateCreated when known) |
+| Page                    | Schema                                                                                                            |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Site-wide (in `Layout`) | `WebSite` (name, URL, sameAs links to social profiles)                                                            |
+| `/about`                | `Person` (name "Joe Passmore", birthDate "1945", birthPlace "Scotland", sameAs links)                             |
+| `/paintings/<slug>`     | `VisualArtwork` (name, image, creator → Person, artform "Painting", artMedium when known, dateCreated when known) |
 
 JSON-LD blocks are rendered as `<script type="application/ld+json">` in the relevant page's head. No runtime cost.
 
@@ -275,17 +278,18 @@ JSON-LD blocks are rendered as `<script type="application/ld+json">` in the rele
 
 `@astrojs/sitemap` is configured with explicit `priority` and `changefreq`:
 
-| URL pattern | priority | changefreq |
-|---|---|---|
-| `/` | `1.0` | `monthly` |
-| `/paintings/*` | `0.8` | `yearly` |
-| `/about`, `/contact` | `0.5` | `yearly` |
+| URL pattern          | priority | changefreq |
+| -------------------- | -------- | ---------- |
+| `/`                  | `1.0`    | `monthly`  |
+| `/paintings/*`       | `0.8`    | `yearly`   |
+| `/about`, `/contact` | `0.5`    | `yearly`   |
 
 ## Favicons and `theme-color`
 
 `public/favicon.svg` — a single hand-drawn SVG mark (the artist's initials "JP" in Fraunces, contained in a thin circle). Uses `currentColor` plus `prefers-color-scheme` media query inside the SVG so the favicon adapts to the user's OS theme.
 
 Also shipped:
+
 - `public/apple-touch-icon.png` (180×180, opaque background)
 - `public/favicon-32x32.png` (legacy fallback for older browsers)
 
@@ -336,27 +340,27 @@ All combinations meet WCAG AA contrast (4.5:1 for body, 3:1 for large text and U
 
 **Light mode**
 
-| Role | Hex | Notes |
-|---|---|---|
-| `bg` | `#FAF7F2` | warm off-white; flatters paintings |
-| `surface` | `#FFFFFF` | thumbnail card background |
-| `border` | `#E6E1D8` | hairline dividers |
-| `text` | `#1A1A1A` | body — 16:1 on `bg` |
-| `text-muted` | `#5A564E` | captions — 7.4:1 on `bg` |
-| `accent` | `#7A4A2B` | links, "Buy on Etsy" — 6.1:1 on `bg` |
-| `accent-hover` | `#5C3820` | link/button hover |
+| Role           | Hex       | Notes                                |
+| -------------- | --------- | ------------------------------------ |
+| `bg`           | `#FAF7F2` | warm off-white; flatters paintings   |
+| `surface`      | `#FFFFFF` | thumbnail card background            |
+| `border`       | `#E6E1D8` | hairline dividers                    |
+| `text`         | `#1A1A1A` | body — 16:1 on `bg`                  |
+| `text-muted`   | `#5A564E` | captions — 7.4:1 on `bg`             |
+| `accent`       | `#7A4A2B` | links, "Buy on Etsy" — 6.1:1 on `bg` |
+| `accent-hover` | `#5C3820` | link/button hover                    |
 
 **Dark mode**
 
-| Role | Hex | Notes |
-|---|---|---|
-| `bg` | `#121212` | near-black, museum-wall feel |
-| `surface` | `#1C1C1C` | thumbnail card background |
-| `border` | `#2A2A2A` | hairline dividers |
-| `text` | `#EDEAE3` | body — 14.2:1 on `bg` |
-| `text-muted` | `#A8A39A` | captions — 8.5:1 on `bg` |
-| `accent` | `#D4A373` | links — 9.8:1 on `bg` |
-| `accent-hover` | `#E5BC92` | link hover |
+| Role           | Hex       | Notes                        |
+| -------------- | --------- | ---------------------------- |
+| `bg`           | `#121212` | near-black, museum-wall feel |
+| `surface`      | `#1C1C1C` | thumbnail card background    |
+| `border`       | `#2A2A2A` | hairline dividers            |
+| `text`         | `#EDEAE3` | body — 14.2:1 on `bg`        |
+| `text-muted`   | `#A8A39A` | captions — 8.5:1 on `bg`     |
+| `accent`       | `#D4A373` | links — 9.8:1 on `bg`        |
+| `accent-hover` | `#E5BC92` | link hover                   |
 
 Defined as Tailwind theme tokens so every value is tunable in one file.
 
@@ -369,13 +373,13 @@ Defined as Tailwind theme tokens so every value is tunable in one file.
 
 ### Responsive breakpoints
 
-| Width | Gallery columns | Header layout | About / Contact |
-|---|---|---|---|
-| `< 640px` | 1 | Title row + nav row stacked | Image stacked above text |
-| `≥ 640px` (sm) | 2 | Inline | Image stacked above text |
-| `≥ 768px` (md) | 3 | Inline | Side-by-side |
-| `≥ 1024px` (lg) | 4 | Inline | Side-by-side |
-| `≥ 1280px` (xl) | 4, container capped at 1280px | Inline | Side-by-side |
+| Width           | Gallery columns               | Header layout               | About / Contact          |
+| --------------- | ----------------------------- | --------------------------- | ------------------------ |
+| `< 640px`       | 1                             | Title row + nav row stacked | Image stacked above text |
+| `≥ 640px` (sm)  | 2                             | Inline                      | Image stacked above text |
+| `≥ 768px` (md)  | 3                             | Inline                      | Side-by-side             |
+| `≥ 1024px` (lg) | 4                             | Inline                      | Side-by-side             |
+| `≥ 1280px` (xl) | 4, container capped at 1280px | Inline                      | Side-by-side             |
 
 Header on mobile uses inline-stacked layout, not a hamburger menu — three links plus a Buy button is short enough that hiding them hurts discoverability.
 
@@ -437,13 +441,13 @@ The implementer (or user) needs to:
 
 ### Netlify features deliberately NOT used
 
-| Feature | Why off |
-|---|---|
-| Asset Optimization | Astro already minifies and optimizes; double-processing can degrade output. |
+| Feature                         | Why off                                                                                  |
+| ------------------------------- | ---------------------------------------------------------------------------------------- |
+| Asset Optimization              | Astro already minifies and optimizes; double-processing can degrade output.              |
 | Image CDN (`/.netlify/images/`) | Astro pre-generates AVIF/WebP variants at build time; CDN transforms would be redundant. |
-| Forms | No contact form in scope. |
-| Functions / Edge Functions | Pure static site. |
-| Lighthouse plugin | Optional; defer to follow-up if desired. |
+| Forms                           | No contact form in scope.                                                                |
+| Functions / Edge Functions      | Pure static site.                                                                        |
+| Lighthouse plugin               | Optional; defer to follow-up if desired.                                                 |
 
 ### PWA / manifest
 
@@ -499,14 +503,14 @@ Tool: **Renovate** (GitHub App, free for public/personal repos). Configured via 
 
 ### Policy
 
-| Update type | Behavior |
-|---|---|
-| Lockfile maintenance (weekly refresh of `pnpm-lock.yaml` without dep bumps) | Auto-merge |
-| `devDependencies` patch + minor + major | Auto-merge |
-| Runtime dep **patch** updates (astro, tailwindcss, sharp, etc.) | Auto-merge |
-| Runtime dep **minor** updates | Manual review |
-| Runtime dep **major** updates | Manual review |
-| Security advisories (any dep) | Manual review (auto-merge could mask a breaking patch under time pressure) |
+| Update type                                                                 | Behavior                                                                   |
+| --------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Lockfile maintenance (weekly refresh of `pnpm-lock.yaml` without dep bumps) | Auto-merge                                                                 |
+| `devDependencies` patch + minor + major                                     | Auto-merge                                                                 |
+| Runtime dep **patch** updates (astro, tailwindcss, sharp, etc.)             | Auto-merge                                                                 |
+| Runtime dep **minor** updates                                               | Manual review                                                              |
+| Runtime dep **major** updates                                               | Manual review                                                              |
+| Security advisories (any dep)                                               | Manual review (auto-merge could mask a breaking patch under time pressure) |
 
 Auto-merge fires only after Netlify's deploy preview build passes. Renovate waits on the `netlify/joepassmorefineart/deploy-preview` status check before merging.
 

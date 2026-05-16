@@ -28,24 +28,10 @@ const { title, description, path, image, jsonLd } = Astro.props;
     <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta
-      name="theme-color"
-      content="#FAF7F2"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#121212"
-      media="(prefers-color-scheme: dark)"
-    />
+    <meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
 
-    <SeoHead
-      title={title}
-      description={description}
-      path={path}
-      image={image}
-      jsonLd={jsonLd}
-    />
+    <SeoHead title={title} description={description} path={path} image={image} jsonLd={jsonLd} />
 
     <slot name="head-extra" />
   </head>

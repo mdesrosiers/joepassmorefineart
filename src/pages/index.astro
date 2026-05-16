@@ -14,12 +14,7 @@ const jsonLd = {
 };
 ---
 
-<Layout
-  title={site.fullTitle}
-  description={site.description}
-  path="/"
-  jsonLd={jsonLd}
->
+<Layout title={site.fullTitle} description={site.description} path="/" jsonLd={jsonLd}>
   <section class="mx-auto max-w-2xl py-12 text-center sm:py-16">
     <h1 class="font-serif text-4xl sm:text-5xl">{site.title}</h1>
     <p class="mt-4 text-[var(--color-text-muted)]">{site.hero}</p>

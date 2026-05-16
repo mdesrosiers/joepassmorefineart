@@ -11,10 +11,9 @@ export type Painting = {
   year?: number;
 };
 
-const paintingModules = import.meta.glob<{ default: ImageMetadata }>(
-  "../assets/paintings/*.jpg",
-  { eager: true }
-);
+const paintingModules = import.meta.glob<{ default: ImageMetadata }>("../assets/paintings/*.jpg", {
+  eager: true,
+});
 
 function buildPaintings(): Painting[] {
   const entries = Object.keys(paintingModules)
