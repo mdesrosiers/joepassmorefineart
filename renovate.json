@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits"],
+  "schedule": ["before 9am on monday"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 9am on monday"]
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "automerge": true
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "major"],
+      "automerge": false
+    },
+    {
+      "matchPackagePatterns": ["^@astrojs/"],
+      "groupName": "Astro integrations"
+    },
+    {
+      "matchPackagePatterns": ["^@fontsource-variable/"],
+      "groupName": "Fontsource fonts"
+    },
+    {
+      "matchPackageNames": ["@playwright/test", "@axe-core/playwright"],
+      "groupName": "Playwright testing"
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "automerge": false
+  }
+}
