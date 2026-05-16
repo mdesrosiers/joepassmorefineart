@@ -55,13 +55,13 @@ const { painting, image, prev, next } = Astro.props;
     class="mt-8 flex items-center justify-between text-sm"
   >
     {prev ? (
-      <a href={`/paintings/${prev.slug}`}>← {prev.alt}</a>
+      <a href={`/paintings/${prev.slug}`}>← {prev.title ?? prev.alt}</a>
     ) : (
       <span />
     )}
     <a href="/" class="text-[var(--color-text-muted)]">Back to gallery</a>
     {next ? (
-      <a href={`/paintings/${next.slug}`}>{next.alt} →</a>
+      <a href={`/paintings/${next.slug}`}>{next.title ?? next.alt} →</a>
     ) : (
       <span />
     )}
