@@ -69,18 +69,14 @@
 
 ## Phase 1 — Backup, cleanup, and scaffold
 
-### Task 1: Create work branch and back up assets
+### Task 1: Back up assets
+
+Work happens directly on `master`. No feature branch.
 
 **Files:**
-- Create: `tmp-backup/` (untracked)
+- Create: `../joepassmorefineart-backup/` (untracked, outside repo)
 
-- [ ] **Step 1: Create and switch to feature branch**
-
-```bash
-git checkout -b rewrite/astro
-```
-
-- [ ] **Step 2: Copy painting images and static files to a temp backup outside the repo**
+- [ ] **Step 1: Copy painting images and static files to a temp backup outside the repo**
 
 ```bash
 mkdir -p ../joepassmorefineart-backup
@@ -92,7 +88,7 @@ ls ../joepassmorefineart-backup/paintings | wc -l
 
 Expected output: `121`
 
-- [ ] **Step 3: Confirm backup matches source**
+- [ ] **Step 2: Confirm backup matches source**
 
 ```bash
 diff <(ls src/images/paintings | sort) <(ls ../joepassmorefineart-backup/paintings | sort)
@@ -2416,41 +2412,35 @@ Expected: `121`.
 
 ### Task 32: Deploy to Netlify
 
-- [ ] **Step 1: Push the branch**
+Work continues on `master`. Pushes go straight to production via Netlify auto-deploy.
+
+- [ ] **Step 1: Final push (recommended: only after Task 31 verification passes)**
 
 ```bash
-git push -u origin rewrite/astro
+git push origin master
 ```
 
-- [ ] **Step 2: Open a PR in GitHub**
+- [ ] **Step 2: Wait for Netlify deploy, smoke-test production URL**
 
-Title: `Rewrite from Gatsby 2 to Astro 5`. Description should reference the spec and link to the deploy preview that Netlify will create.
-
-- [ ] **Step 3: Wait for Netlify preview, smoke-test the preview URL**
-
-Confirm:
+Confirm at `https://joepassmorefineart.com/`:
 - [ ] Pages load over HTTPS
-- [ ] Security headers visible: `curl -sI https://<deploy-preview-url>/ | grep -iE 'content-security-policy|x-content-type|strict-transport'`
+- [ ] Security headers visible: `curl -sI https://joepassmorefineart.com/ | grep -iE 'content-security-policy|x-content-type|strict-transport'`
 - [ ] CSP is intact (no console violations in DevTools)
 - [ ] Lighthouse: Performance, Accessibility, Best Practices, SEO each ≥ 95 on `/` and `/paintings/042` (mobile + desktop)
 
-- [ ] **Step 4: securityheaders.com check**
+- [ ] **Step 3: securityheaders.com check**
 
-Visit `https://securityheaders.com/?q=<deploy-preview-url>` — expect grade A or A+.
+Visit `https://securityheaders.com/?q=joepassmorefineart.com` — expect grade A or A+.
 
-- [ ] **Step 5: Update Netlify dashboard build settings**
+- [ ] **Step 4: Update Netlify dashboard build settings**
 
 In the Netlify project: ensure the build command and publish dir are unset (so `netlify.toml` takes precedence), or set them to match: `pnpm build` and `dist`. Confirm "Asset optimization" is OFF.
 
-- [ ] **Step 6: Install Renovate GitHub App**
+- [ ] **Step 5: Install Renovate GitHub App**
 
 Install the Renovate App at `https://github.com/apps/renovate` on the `mdesrosiers/joepassmorefineart` repo. Merge or close Renovate's onboarding PR (the policy in `renovate.json` is canonical).
 
-- [ ] **Step 7: Merge PR**
-
-Merge `rewrite/astro` → `master`. Netlify auto-deploys to production. Smoke-test `https://joepassmorefineart.com/`.
-
-- [ ] **Step 8: Watch first Renovate cycle**
+- [ ] **Step 6: Watch first Renovate cycle**
 
 Within 7 days, the first Renovate `lockFileMaintenance` PR should land and auto-merge after CI passes. If it doesn't, check the Renovate dashboard for the project.
 
