@@ -1,0 +1,42 @@
+---
+import { site } from "~/data/site";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header
+  class="border-b border-[var(--color-border)] bg-[var(--color-surface)]"
+>
+  <div
+    class="mx-auto flex max-w-[1280px] flex-col items-center gap-2 px-4 py-4 sm:flex-row sm:justify-between"
+  >
+    <a
+      href="/"
+      class="font-serif text-2xl tracking-tight text-[var(--color-text)] hover:no-underline"
+    >
+      {site.title}
+    </a>
+    <nav
+      aria-label="Primary"
+      class="flex flex-wrap items-center justify-center gap-1 text-sm sm:gap-2"
+    >
+      <a
+        href="/about"
+        class="rounded-md px-3 py-2 text-[var(--color-text)] hover:bg-[var(--color-border)] hover:no-underline"
+        >About</a
+      >
+      <a
+        href="/contact"
+        class="rounded-md px-3 py-2 text-[var(--color-text)] hover:bg-[var(--color-border)] hover:no-underline"
+        >Contact</a
+      >
+      <a
+        href={site.social.etsy}
+        rel="noopener noreferrer"
+        target="_blank"
+        class="rounded-md px-3 py-2 text-[var(--color-accent)] hover:bg-[var(--color-border)] hover:no-underline"
+        >Buy on Etsy</a
+      >
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
