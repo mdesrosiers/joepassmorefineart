@@ -3,9 +3,8 @@ export const site = {
   title: "Joe Passmore",
   fullTitle: "Joe Passmore — Fine Art",
   description:
-    "Paintings by Joe Passmore, a Vancouver-based painter. Landscapes, figures, and scenes from a lifetime of work.",
-  hero:
-    "My work reflects what I see and admire in the world that we all live in, people and places that remain in my memory.",
+    "Paintings by Joe Passmore, a painter. Landscapes, figures, and scenes from a lifetime of work.",
+  hero: "My work reflects what I see and admire in the world that we all live in, people and places that remain in my memory.",
   copyrightYear: 2026,
   social: {
     etsy: "https://www.etsy.com/ca/shop/joepassmorefineart",

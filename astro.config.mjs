@@ -23,5 +23,13 @@ export default defineConfig({
       },
     }),
   ],
-  vite: { plugins: [tailwind()] },
+  vite: {
+    plugins: [tailwind()],
+    build: {
+      // Prevent Astro/Vite from inlining small JS chunks back into HTML.
+      // CSP `script-src 'self'` cannot allow inline modules; we need
+      // every component <script> to ship as an external /_astro/* file.
+      assetsInlineLimit: 0,
+    },
+  },
 });
