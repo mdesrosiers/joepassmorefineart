@@ -1,8 +1,13 @@
-# Project dependencies
-.cache
-node_modules
-yarn-error.log
-
-# Build directory
-/public
+node_modules/
+dist/
+.astro/
+.cache/
 .DS_Store
+*.log
+.env
+.env.local
+.env.*.local
+.netlify/
+test-results/
+playwright-report/
+playwright/.cache/
