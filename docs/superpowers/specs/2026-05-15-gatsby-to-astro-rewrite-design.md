@@ -180,8 +180,8 @@ Implementation: a single TypeScript class in a `<script>` block in `Lightbox.ast
 | Click thumbnail (with JS) | `event.preventDefault()`, open dialog, `history.pushState` to `/paintings/<slug>` |
 | Click thumbnail (without JS) | Browser navigates to `/paintings/<slug>` |
 | Click prev/next | Swap image, `history.replaceState` (so back doesn't walk every painting) |
-| Click outside image | Close lightbox, restore previous URL |
-| Close button | Close lightbox, restore previous URL |
+| Click outside image | Close lightbox, `history.back()` to the gallery URL |
+| Close button | Close lightbox, `history.back()` to the gallery URL |
 | `Esc` key | Close (native `<dialog>` behavior) |
 | `←` / `→` keys | Prev / next |
 | Tab | Cycles close + prev + next; focus trap |
@@ -217,7 +217,7 @@ On open, prefetch neighbors (prev + next) so swipe/arrow navigation feels instan
 - **Headings:** Fraunces Variable — modern serif, literary feel, designed for display sizes.
 - **Body / UI:** Inter Variable — neutral, screen-optimized sans.
 
-Both shipped via `@fontsource-variable/*`. Total wire weight after WOFF2 compression: ~60 KB. No Google Fonts CDN request. Font files cached forever via `Cache-Control: immutable`.
+Both shipped via `@fontsource-variable/*`, Latin subset only, WOFF2-compressed. Estimated wire weight: ~120–180 KB total across both fonts (final number measured during implementation; if higher than expected we trim weights or fall back to system serif for headings). No Google Fonts CDN request. Font files cached forever via `Cache-Control: immutable`.
 
 ### Color palette
 
