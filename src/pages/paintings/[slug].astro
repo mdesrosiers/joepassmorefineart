@@ -10,10 +10,7 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const painting = getPainting(slug!);
-if (!painting) {
-  return Astro.redirect("/404");
-}
+const painting = getPainting(slug!)!;
 const image = getPaintingImage(painting.slug)!;
 const { prev, next } = getNeighbors(painting.slug);
 

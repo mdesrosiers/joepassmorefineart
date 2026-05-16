@@ -2,6 +2,8 @@
 import Layout from "~/layouts/Layout.astro";
 import Gallery from "~/components/Gallery.astro";
 import Lightbox from "~/components/Lightbox.astro";
+import { getImage } from "astro:assets";
+import { paintings, getPaintingImage } from "~/data/paintings";
 import { site } from "~/data/site";
 
 const jsonLd = {
@@ -12,9 +14,30 @@ const jsonLd = {
   description: site.description,
   sameAs: [site.social.facebook, site.social.instagram, site.social.etsy],
 };
+
+const lcpSizes =
+  "(min-width: 1024px) 300px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw";
+const lcpWidths = [300, 600, 900];
+const lcpImage = getPaintingImage(paintings[0].slug)!;
+const lcpSrcset = (
+  await Promise.all(
+    lcpWidths.map(async (w) => {
+      const r = await getImage({ src: lcpImage, width: w, format: "webp" });
+      return `${r.src} ${w}w`;
+    })
+  )
+).join(", ");
 ---
 
 <Layout title={site.fullTitle} description={site.description} path="/" jsonLd={jsonLd}>
+  <link
+    slot="head-extra"
+    rel="preload"
+    as="image"
+    type="image/webp"
+    imagesrcset={lcpSrcset}
+    imagesizes={lcpSizes}
+  />
   <section class="mx-auto max-w-2xl py-12 text-center sm:py-16">
     <h1 class="font-serif text-4xl sm:text-5xl">{site.title}</h1>
     <p class="mt-4 text-[var(--color-text-muted)]">{site.hero}</p>
