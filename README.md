@@ -57,4 +57,5 @@ Pushes to `master` trigger a Netlify build. Build config lives in `netlify.toml`
 
 ## License
 
-[MIT](./LICENSE)
+Code and configuration: [MIT](./LICENSE).
+Paintings under `src/assets/paintings/` and their build-pipeline derivatives: © Joe Passmore, all rights reserved. See [NOTICE](./NOTICE).

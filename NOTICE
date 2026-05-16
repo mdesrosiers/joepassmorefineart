@@ -1,0 +1,19 @@
+Joe Passmore Fine Art
+
+The MIT License in LICENSE applies to the code and configuration in this
+repository (the "Software"). It does NOT apply to the artwork.
+
+All paintings under src/assets/paintings/ — and any derived images
+generated from them by the build pipeline (under dist/_astro/, public/
+preview images, social-card derivatives, etc.) — are:
+
+  Copyright © Joe Passmore. All rights reserved.
+
+Reproduction, redistribution, or commercial use of the paintings or their
+derived images requires the prior written permission of Joe Passmore. The
+MIT license granted on the surrounding code does not extend to the
+artwork. Permissive use of the code (forking, modifying, redeploying)
+does not grant any rights to the paintings themselves.
+
+For licensing inquiries about the artwork, see the contact information at
+https://joepassmorefineart.com/contact.
