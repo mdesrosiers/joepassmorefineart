@@ -1,0 +1,21 @@
+{
+  "name": "Joe Passmore Fine Art",
+  "short_name": "Joe Passmore",
+  "start_url": "/",
+  "scope": "/",
+  "display": "minimal-ui",
+  "background_color": "#FAF7F2",
+  "theme_color": "#FAF7F2",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
