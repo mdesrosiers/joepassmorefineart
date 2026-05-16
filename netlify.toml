@@ -8,6 +8,12 @@
   NPM_CONFIG_PRODUCTION = "false"
   NODE_ENV = "development"
 
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+  [plugins.inputs]
+    output_path = "lighthouse-report.html"
+
 [[headers]]
   for = "/_astro/*"
   [headers.values]
