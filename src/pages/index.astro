@@ -1,0 +1,28 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import Gallery from "~/components/Gallery.astro";
+import { site } from "~/data/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: site.title,
+  url: site.url,
+  description: site.description,
+  sameAs: [site.social.facebook, site.social.instagram, site.social.etsy],
+};
+---
+
+<Layout
+  title={site.fullTitle}
+  description={site.description}
+  path="/"
+  jsonLd={jsonLd}
+>
+  <section class="mx-auto max-w-2xl py-12 text-center sm:py-16">
+    <h1 class="font-serif text-4xl sm:text-5xl">{site.title}</h1>
+    <p class="mt-4 text-[var(--color-text-muted)]">{site.hero}</p>
+  </section>
+
+  <Gallery />
+</Layout>
