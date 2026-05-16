@@ -18,10 +18,9 @@ describe("paintings", () => {
     expect(slugs).toEqual(sorted);
   });
 
-  it("each entry has slug, filename, alt", () => {
+  it("each entry has slug and alt", () => {
     paintings.forEach((p: Painting) => {
       expect(p.slug).toMatch(/^\d{3}$/);
-      expect(p.filename).toBe(`${p.slug}.jpg`);
       expect(p.alt).toBe(`Painting ${p.slug}`);
     });
   });

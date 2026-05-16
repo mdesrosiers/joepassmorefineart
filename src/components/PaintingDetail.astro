@@ -20,7 +20,7 @@ const { painting, image, prev, next } = Astro.props;
     sizes="(min-width: 1280px) 1280px, 100vw"
     loading="eager"
     fetchpriority="high"
-    class="w-full bg-[var(--color-surface)]"
+    class="w-full bg-surface"
   />
 
   {
@@ -28,14 +28,12 @@ const { painting, image, prev, next } = Astro.props;
       <div class="mt-6">
         {painting.title && <h1 class="font-serif text-3xl">{painting.title}</h1>}
         {painting.medium && (
-          <p class="mt-1 text-sm text-[var(--color-text-muted)]">
+          <p class="mt-1 text-sm text-text-muted">
             {painting.medium}
             {painting.year ? ` · ${painting.year}` : ""}
           </p>
         )}
-        {painting.description && (
-          <p class="mt-4 text-[var(--color-text)]">{painting.description}</p>
-        )}
+        {painting.description && <p class="mt-4 text-text">{painting.description}</p>}
         {painting.etsyUrl && (
           <a
             href={painting.etsyUrl}
@@ -52,7 +50,7 @@ const { painting, image, prev, next } = Astro.props;
 
   <nav aria-label="Painting navigation" class="mt-8 flex items-center justify-between text-sm">
     {prev ? <a href={`/paintings/${prev.slug}`}>← {prev.title ?? prev.alt}</a> : <span />}
-    <a href="/" class="text-[var(--color-text-muted)]">Back to gallery</a>
+    <a href="/" class="text-text-muted">Back to gallery</a>
     {next ? <a href={`/paintings/${next.slug}`}>{next.title ?? next.alt} →</a> : <span />}
   </nav>
 </article>

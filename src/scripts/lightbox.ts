@@ -20,6 +20,10 @@ class Lightbox {
   private lookup: Lookup = new Map();
   private current = -1;
   private originatingThumb: HTMLAnchorElement | null = null;
+  // True after we've pushed at least one history entry this session, so
+  // closing can safely history.back() without navigating off-site when the
+  // user deep-linked into a thumbnail page from elsewhere.
+  private pushedThisSession = false;
   private touchStartX = 0;
   private touchStartY = 0;
   private touchActive = false;
@@ -50,7 +54,7 @@ class Lightbox {
   private attachDialogHandlers() {
     this.dialog
       .querySelector<HTMLButtonElement>("[data-lb-close]")
-      ?.addEventListener("click", () => this.close());
+      ?.addEventListener("click", () => this.dialog.close());
     this.dialog
       .querySelector<HTMLButtonElement>("[data-lb-prev]")
       ?.addEventListener("click", () => this.step(-1));
@@ -58,12 +62,18 @@ class Lightbox {
       .querySelector<HTMLButtonElement>("[data-lb-next]")
       ?.addEventListener("click", () => this.step(1));
     this.dialog.addEventListener("click", (e) => {
-      if (e.target === this.dialog) this.close();
+      if (e.target === this.dialog) this.dialog.close();
     });
     this.dialog.addEventListener("close", () => {
       document.documentElement.style.overflow = "";
       this.originatingThumb?.focus();
-      if (history.state?.lb) history.back();
+      // Pop the lightbox URL we pushed in openSlug() so closing restores
+      // the previous URL. Only safe if we pushed in this session — otherwise
+      // history.back() would navigate the user off the site.
+      if (this.pushedThisSession && history.state?.lb) {
+        this.pushedThisSession = false;
+        history.back();
+      }
     });
   }
 
@@ -82,6 +92,8 @@ class Lightbox {
   private attachPointerHandlers() {
     this.container.addEventListener("pointerdown", (e) => {
       if (e.pointerType !== "touch") return;
+      // iOS edge-swipe guard: ignore pointerdowns within 20px of the left
+      // edge so the system back-swipe still works.
       if (e.clientX < 20) return;
       this.touchStartX = e.clientX;
       this.touchStartY = e.clientY;
@@ -122,6 +134,7 @@ class Lightbox {
     }
     if (push) {
       history.pushState({ lb: true }, "", `/paintings/${slug}`);
+      this.pushedThisSession = true;
     }
     this.preloadNeighbors();
   }
@@ -158,10 +171,6 @@ class Lightbox {
         probe.sizes = src.sizes;
       }
     });
-  }
-
-  private close() {
-    this.dialog.close();
   }
 }
 

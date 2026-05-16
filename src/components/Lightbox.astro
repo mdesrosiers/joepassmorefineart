@@ -10,14 +10,14 @@ const items = paintings.map((p) => ({
 
 <dialog
   id="lightbox"
-  class="m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden border-0 bg-[var(--color-bg)]/95 p-0 backdrop:bg-transparent"
+  class="m-0 h-dvh max-h-none w-screen max-w-none overflow-hidden border-0 bg-bg/95 p-0 backdrop:bg-transparent"
   aria-label="Painting viewer"
 >
   <div class="relative flex h-full w-full items-center justify-center">
     <button
       type="button"
       data-lb-close
-      class="absolute top-3 right-3 z-10 grid h-12 w-12 place-items-center rounded-full bg-[var(--color-surface)] text-[var(--color-text)]"
+      class="absolute top-3 right-3 z-10 grid h-12 w-12 place-items-center rounded-full bg-surface text-text"
       aria-label="Close"
     >
       <svg
@@ -38,7 +38,7 @@ const items = paintings.map((p) => ({
     <button
       type="button"
       data-lb-prev
-      class="absolute left-3 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-[var(--color-surface)] text-[var(--color-text)]"
+      class="absolute left-3 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-surface text-text"
       aria-label="Previous painting"
     >
       <svg
@@ -58,7 +58,7 @@ const items = paintings.map((p) => ({
     <button
       type="button"
       data-lb-next
-      class="absolute right-3 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-[var(--color-surface)] text-[var(--color-text)]"
+      class="absolute right-3 top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full bg-surface text-text"
       aria-label="Next painting"
     >
       <svg
