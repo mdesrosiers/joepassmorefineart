@@ -18,7 +18,7 @@
     "test": "playwright test",
     "test:unit": "vitest run",
     "csp-hash": "node scripts/compute-csp-hash.mjs",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.0.0",
