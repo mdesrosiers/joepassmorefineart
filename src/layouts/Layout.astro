@@ -21,6 +21,7 @@ const { title, description, path, image, jsonLd } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline set:html={themeSetterScript} />
     <meta name="generator" content={Astro.generator} />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -46,7 +47,6 @@ const { title, description, path, image, jsonLd } = Astro.props;
       jsonLd={jsonLd}
     />
 
-    <script is:inline set:html={themeSetterScript} />
     <slot name="head-extra" />
   </head>
   <body class="min-h-dvh">
