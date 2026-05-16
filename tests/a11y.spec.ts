@@ -1,23 +1,21 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const pages = [
-  "/",
-  "/about",
-  "/contact",
-  "/paintings/121",
-  "/paintings/001",
-  "/404",
-];
+const pages = ["/", "/about", "/contact", "/paintings/121", "/paintings/001", "/404"];
 
 const themes = [
-  { name: "light", setup: async () => {} },
+  {
+    name: "light",
+    setup: async (page: import("@playwright/test").Page) => {
+      await page.emulateMedia({ colorScheme: "light" });
+      await page.evaluate(() => document.documentElement.classList.remove("dark"));
+    },
+  },
   {
     name: "dark",
     setup: async (page: import("@playwright/test").Page) => {
-      await page.evaluate(() =>
-        document.documentElement.classList.add("dark")
-      );
+      await page.emulateMedia({ colorScheme: "dark" });
+      await page.evaluate(() => document.documentElement.classList.add("dark"));
     },
   },
 ];

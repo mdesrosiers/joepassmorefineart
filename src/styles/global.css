@@ -3,8 +3,8 @@
 @import "@fontsource-variable/inter";
 
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, sans-serif;
+  --font-sans:
+    "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
 
   --color-bg: #faf7f2;
@@ -50,11 +50,10 @@
     text-decoration: underline;
   }
   /* Inline links inside body prose get an underline so they meet WCAG 1.4.1
-     (color is not the only visual cue). Header/footer/nav links opt out
-     by living outside <main> or by using utility classes. */
+     (color is not the only visual cue). Scoped to <p> and <li> — header,
+     footer, in-article nav, and CTA buttons opt out by their semantic context. */
   main p a,
-  main li a,
-  main article a {
+  main li a {
     text-decoration: underline;
     text-underline-offset: 2px;
   }
