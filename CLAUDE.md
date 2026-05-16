@@ -10,6 +10,17 @@ Astro 6 · Tailwind 4 (`@tailwindcss/vite`) · TypeScript strict · Sharp images
 
 Use `.nvmrc` (Node 22) and the `packageManager` field in `package.json` (pnpm 9.15.9). Local Volta or nvm both work.
 
+## Workflow
+
+`master` is protected by a GitHub ruleset and a local Husky `pre-commit` hook — direct commits are blocked. Every change goes through a PR:
+
+1. `git switch -c <type>/<short-name>` (e.g. `feat/etsy-metadata`, `fix/lightbox-swipe`, `chore/...`, `docs/...`).
+2. Commit, push, open a PR against `master`.
+3. Enable auto-merge with squash: `gh pr merge --auto --squash --delete-branch`. GitHub squash-merges once required checks pass (typecheck, unit, build, Playwright, Netlify deploy preview) and deletes the branch.
+4. To check whether a PR has merged later, run `gh pr list --state merged --limit 5` or `gh pr view <num>` — there's no background notification.
+
+After a merge: `git switch master && git pull --ff-only` before starting the next branch.
+
 ## Commands
 
 ```bash
