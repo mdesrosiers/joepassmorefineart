@@ -23,6 +23,14 @@ The current site is on Gatsby 2.32 (released 2021), pinned to Node 14.15.5, depe
 - Responsive design across mobile / tablet / desktop.
 - Refreshed Netlify configuration.
 - Automated dependency updates via Renovate (auto-merge dev deps and patches; manual review for runtime minor/major).
+- Per-page SEO: distinct `<title>` and `<meta name="description">`, sitemap with priorities.
+- Social sharing: Open Graph + Twitter Card meta on every page, with the painting itself as the share image on detail pages.
+- Structured data: JSON-LD (`VisualArtwork` per painting, `Person` for the artist, `WebSite` site-wide).
+- Modern favicon set (SVG + Apple touch icon + 32×32 fallback) and `theme-color` for light + dark.
+- LCP image preload on the gallery page.
+- Content Security Policy header (strict; inline theme-setter script uses a hash).
+- GitHub Actions CI: typecheck, build, accessibility tests on every PR.
+- Pre-commit hook (Husky + lint-staged) auto-formatting with Prettier.
 - Verbatim preservation of all current text content (hero copy, bio, contact links, copyright).
 - Verbatim preservation of all 121 painting images.
 
@@ -87,6 +95,8 @@ Dev:
 - `prettier-plugin-astro`
 - `@playwright/test`
 - `@axe-core/playwright`
+- `husky`
+- `lint-staged`
 
 Removed: `gatsby` and all 13 `gatsby-*` plugins, `@material-ui/core`, `react`, `react-dom`, `react-helmet`, `react-icons`, `react-typography`, `typography`, `typography-theme-noriega`, `flow-bin`.
 
@@ -94,13 +104,20 @@ Removed: `gatsby` and all 13 `gatsby-*` plugins, `@material-ui/core`, `react`, `
 
 ```
 joepassmorefineart/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── .husky/
+│   └── pre-commit
 ├── astro.config.mjs
 ├── tsconfig.json
 ├── package.json
 ├── netlify.toml
 ├── renovate.json
 ├── public/
-│   ├── favicon.png
+│   ├── favicon.svg
+│   ├── favicon-32x32.png
+│   ├── apple-touch-icon.png
 │   ├── robots.txt
 │   ├── manifest.webmanifest
 │   └── google07c78460282caa9d.html   # preserved
@@ -113,7 +130,8 @@ joepassmorefineart/
 │   │   ├── ThemeToggle.astro
 │   │   ├── Gallery.astro
 │   │   ├── Lightbox.astro
-│   │   └── PaintingDetail.astro
+│   │   ├── PaintingDetail.astro
+│   │   └── SeoHead.astro
 │   ├── data/
 │   │   └── paintings.ts
 │   ├── layouts/
@@ -212,6 +230,97 @@ On open, prefetch neighbors (prev + next) so swipe/arrow navigation feels instan
 
 `/paintings/<slug>` is a fully prerendered standalone page. The lightbox is purely a gallery-page enhancement. Direct visits and crawlers always see real HTML.
 
+## SEO, social sharing, and structured data
+
+A shared `SeoHead.astro` component drives all `<head>` metadata. Every page passes a `title`, `description`, and optional `image` (defaults to a site-wide OG image — likely the artist's portrait painting).
+
+### Per-page metadata
+
+| Page | `<title>` | `<meta description>` |
+|---|---|---|
+| `/` | `Joe Passmore — Fine Art` | "Paintings by Joe Passmore, a Vancouver-based painter. Landscapes, figures, and scenes from a lifetime of work." |
+| `/about` | `About — Joe Passmore` | "Born in Scotland in 1945. Self-taught painter working primarily in oils. Influenced by his time in Corfu, Greece in the 1960s." |
+| `/contact` | `Contact — Joe Passmore` | "Buy prints on Etsy. Follow on Instagram and Facebook." |
+| `/paintings/<slug>` | `Painting <slug> — Joe Passmore` (uses real `title` once Etsy enrichment ships) | Bio-style fallback; uses real `description` once enriched |
+| `/404` | `Page not found — Joe Passmore` | "This page doesn't exist." |
+
+### Open Graph + Twitter Card
+
+Every page emits:
+
+```html
+<meta property="og:title" content="..." />
+<meta property="og:description" content="..." />
+<meta property="og:image" content="https://joepassmorefineart.com/og/<page>.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:type" content="website" /> <!-- "article" not appropriate -->
+<meta property="og:url" content="..." />
+<meta name="twitter:card" content="summary_large_image" />
+```
+
+Painting detail pages use the painting itself as `og:image` — Astro's `<Image>` component generates a 1200×630 derivative at build time, fit-within (no cropping) on a neutral background matching the light-mode `bg`.
+
+### JSON-LD structured data
+
+| Page | Schema |
+|---|---|
+| Site-wide (in `Layout`) | `WebSite` (name, URL, sameAs links to social profiles) |
+| `/about` | `Person` (name "Joe Passmore", birthDate "1945", birthPlace "Scotland", sameAs links) |
+| `/paintings/<slug>` | `VisualArtwork` (name, image, creator → Person, artform "Painting", artMedium when known, dateCreated when known) |
+
+JSON-LD blocks are rendered as `<script type="application/ld+json">` in the relevant page's head. No runtime cost.
+
+### Sitemap detail
+
+`@astrojs/sitemap` is configured with explicit `priority` and `changefreq`:
+
+| URL pattern | priority | changefreq |
+|---|---|---|
+| `/` | `1.0` | `monthly` |
+| `/paintings/*` | `0.8` | `yearly` |
+| `/about`, `/contact` | `0.5` | `yearly` |
+
+## Favicons and `theme-color`
+
+`public/favicon.svg` — a single hand-drawn SVG mark (the artist's initials "JP" in Fraunces, contained in a thin circle). Uses `currentColor` plus `prefers-color-scheme` media query inside the SVG so the favicon adapts to the user's OS theme.
+
+Also shipped:
+- `public/apple-touch-icon.png` (180×180, opaque background)
+- `public/favicon-32x32.png` (legacy fallback for older browsers)
+
+`<head>` references:
+
+```html
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
+```
+
+The two `theme-color` declarations color the mobile browser chrome to match the active theme.
+
+## Performance
+
+### LCP image preload
+
+The first painting visible on the gallery (sorted DESC, so `116.jpg` or whatever the highest-numbered file is) is the LCP candidate. The gallery page emits:
+
+```html
+<link rel="preload" as="image" imagesrcset="..." imagesizes="..." />
+```
+
+Generated from the same `<Image>` component output that renders the actual thumbnail — so the preload `srcset`/`sizes` always match. Saves ~200ms on first paint.
+
+### Other performance targets
+
+- HTML, CSS, JS minified by Astro's Vite pipeline.
+- Images served as AVIF (preferred) → WebP → JPEG fallback via `<picture>`.
+- All assets under `/_astro/` cached `immutable, max-age=1 year` (set in `netlify.toml`).
+- Total JavaScript shipped to the gallery page: < 10 KB gzipped (just the lightbox + theme-toggle scripts).
+
 ## Theming and design
 
 ### Fonts (self-hosted)
@@ -304,8 +413,19 @@ Header on mobile uses inline-stacked layout, not a hamburger menu — three link
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "interest-cohort=()"
+    Permissions-Policy = "interest-cohort=(), camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-<theme-script-hash>'; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Frame-Options = "DENY"
 ```
+
+### Content Security Policy notes
+
+- `'unsafe-inline'` for `style-src` is required by Astro's scoped `<style>` blocks (they emit per-component inline `<style>` tags). Tighter alternative (per-style hashes via `style-src-elem`) is rejected for brittleness — every CSS edit would change the hash.
+- The single inline `<script>` is the pre-paint theme-setter. Its SHA-256 is computed at build time and substituted into the CSP string. A small Astro integration (or build-time `netlify.toml` template) handles this; if the script changes, the build regenerates the hash. The implementation plan will spell out the exact mechanism.
+- `frame-ancestors 'none'` + `X-Frame-Options: DENY` prevents clickjacking.
+- `form-action 'none'` is safe — no forms in scope.
+- `Strict-Transport-Security` 2-year max-age with preload eligibility (Netlify already serves HTTPS; HSTS prevents downgrade).
 
 ### Netlify dashboard tasks
 
@@ -341,6 +461,37 @@ Removed entirely. Decision deferred to a future task. Candidates:
 - Google Analytics 4 (free, Google ecosystem)
 - Plausible (paid, privacy-first, simple)
 - Cloudflare Web Analytics (free, privacy-first, requires CF as DNS provider — currently Netlify DNS)
+
+## CI and developer workflow
+
+### GitHub Actions CI
+
+`.github/workflows/ci.yml` runs on every PR and on every push to `master`:
+
+1. Checkout, setup Node 20, setup pnpm, install deps via cache.
+2. `pnpm typecheck` (Astro's `astro check`).
+3. `pnpm build`.
+4. `pnpm playwright test` — runs the accessibility test suite (`@axe-core/playwright`) against the built site, both light and dark mode.
+
+This gives Renovate a fast green check independent of Netlify's deploy preview, so auto-merge doesn't hang waiting on Netlify.
+
+Approximate runtime: 2–3 minutes. Cached pnpm store and Playwright browsers keep runs fast.
+
+### Pre-commit hook
+
+Husky + lint-staged auto-format staged files on commit:
+
+- `*.{astro,ts,css,md,json}` → `prettier --write`
+
+`prepare` script in `package.json` installs Husky on first `pnpm install`. The hook itself is a one-line `npx lint-staged`.
+
+If the hook ever blocks legitimate work, `git commit --no-verify` is the explicit escape hatch (no other automation depends on the hook).
+
+### Editor configuration
+
+`.editorconfig` enforces tab vs space, line endings, trailing newlines — small, language-agnostic, picked up automatically by VS Code and most editors.
+
+`.prettierrc` configures Prettier (2-space indent, double quotes, trailing commas — matches existing repo style for continuity, but values can be tuned during implementation).
 
 ## Automated dependency updates
 
@@ -427,7 +578,10 @@ Before declaring the rewrite complete, the implementer must:
 5. **Lighthouse:** ≥ 95 on Performance, Accessibility, Best Practices, SEO for `/` and a sample painting page (mobile and desktop).
 6. **Static fallback:** confirm gallery thumbnails navigate correctly with JS disabled.
 7. **Crawler check:** confirm sitemap includes every painting URL and `robots.txt` resolves.
-8. **Renovate check:** Renovate App is installed; `renovate.json` is committed; onboarding PR resolved; first lockfile-maintenance cycle auto-merges cleanly.
+8. **SEO/social check:** every page has a unique `<title>` and meta description; OG tags present; sharing `/paintings/042` to Slack/iMessage shows the painting; JSON-LD validates via Google's [Rich Results Test](https://search.google.com/test/rich-results).
+9. **Security headers check:** [securityheaders.com](https://securityheaders.com) reports A or A+ on the deployed site; CSP has no `unsafe-eval` and no wildcard sources.
+10. **CI check:** GitHub Actions workflow green on a sample PR; runtime under 5 minutes.
+11. **Renovate check:** Renovate App is installed; `renovate.json` is committed; onboarding PR resolved; first lockfile-maintenance cycle auto-merges cleanly.
 
 ## Migration order (preview — full plan in writing-plans next)
 
@@ -441,10 +595,16 @@ Before declaring the rewrite complete, the implementer must:
 8. Build `paintings/[slug].astro` detail page.
 9. Build `Lightbox.astro` and integrate into gallery.
 10. Build `about.astro`, `contact.astro`, `404.astro`.
-11. Add `netlify.toml`, `manifest.webmanifest`, `robots.txt`, sitemap integration.
-12. Add `renovate.json`; install Renovate GitHub App; resolve onboarding PR.
-13. Run verification checklist; iterate until clean.
-14. Deploy to Netlify, smoke-test live URL.
+11. Build `SeoHead.astro` with OG/Twitter/JSON-LD; wire into `Layout.astro` and detail pages.
+12. Generate per-painting OG images at build time (1200×630).
+13. Add favicon set (SVG with `prefers-color-scheme`, apple-touch-icon, 32×32 PNG); update `manifest.webmanifest` with `theme_color` matching new palette.
+14. Add LCP image preload to gallery page.
+15. Add `netlify.toml` with security headers (CSP with build-time hash injection for the theme-setter script), `robots.txt`, sitemap integration.
+16. Add `.github/workflows/ci.yml` (typecheck + build + Playwright a11y).
+17. Add Husky + lint-staged + `.editorconfig` + `.prettierrc`.
+18. Add `renovate.json`; install Renovate GitHub App; resolve onboarding PR.
+19. Run verification checklist; iterate until clean.
+20. Deploy to Netlify, smoke-test live URL (security headers, OG previews, Lighthouse).
 
 ## Future work
 
