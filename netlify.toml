@@ -24,6 +24,25 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Static brand assets at the root: shipped from public/ with stable filenames.
+# Not content-hashed, so cache for one week rather than `immutable` — long
+# enough to win on repeat visits and link-preview renders, short enough to
+# refresh after a redeploy that updates them.
+[[headers]]
+  for = "/og-default.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/apple-touch-icon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/favicon-32x32.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
 [[headers]]
   for = "/*"
   [headers.values]

@@ -1,21 +1,15 @@
 # Security Policy
 
-## Supported Versions
+This is a small static portfolio site. There's no server, no user data, no authentication, no forms. The only "code" running for visitors is a tiny lightbox + dark-mode toggle.
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+## Reporting a vulnerability
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+If you find a security issue (e.g. a CSP bypass, an XSS via the painting image pipeline, or anything else), please open a private security advisory:
 
-## Reporting a Vulnerability
+<https://github.com/mdesrosiers/joepassmorefineart/security/advisories/new>
 
-Use this section to tell people how to report a vulnerability.
+You should expect a reply within a few days, on a best-effort basis.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+## Dependency vulnerabilities
+
+[Renovate](https://docs.renovatebot.com/) is configured to surface and (where safe) auto-merge dependency updates. Vulnerability advisories are _not_ auto-merged — they go through a manual review.

@@ -6,9 +6,9 @@ Static portfolio site for the painter Joe Passmore — 121 paintings, fully prer
 
 ## Stack
 
-Astro 5 · Tailwind 4 · TypeScript · Sharp images · Vitest · Playwright (Chromium + WebKit) · Husky + lint-staged · Renovate · Netlify.
+Astro 6 · Tailwind 4 · TypeScript · Sharp images · Vitest · Playwright (Chromium + WebKit) · Husky + lint-staged · Renovate · Netlify.
 
-Requires **Node 22 LTS** and **pnpm 9** (both managed via Volta or nvm).
+Requires **Node 22.12+** (see `.nvmrc`) and **pnpm 9.15.9+** (pinned in `package.json` `packageManager`).
 
 ## Quick start
 
@@ -19,21 +19,22 @@ pnpm dev          # http://localhost:4321
 
 ## Commands
 
-| Command          | What it does                                   |
-| ---------------- | ---------------------------------------------- |
-| `pnpm dev`       | Local dev server with HMR                      |
-| `pnpm build`     | Production build → `dist/`                     |
-| `pnpm preview`   | Serve `dist/` locally                          |
-| `pnpm typecheck` | `astro check` (strict TypeScript)              |
-| `pnpm test:unit` | Vitest — painting data layer                   |
-| `pnpm test`      | Playwright — lightbox + WCAG AA accessibility  |
-| `pnpm format`    | Prettier across the repo                       |
-| `pnpm csp-hash`  | Recompute CSP hash for the inline theme script |
+| Command          | What it does                                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `pnpm dev`       | Local dev server with HMR                                                                              |
+| `pnpm build`     | Production build → `dist/`                                                                             |
+| `pnpm preview`   | Serve `dist/` locally                                                                                  |
+| `pnpm typecheck` | `astro check` (strict TypeScript)                                                                      |
+| `pnpm test:unit` | Vitest — painting data layer                                                                           |
+| `pnpm test`      | Playwright — lightbox + WCAG AA accessibility                                                          |
+| `pnpm format`    | Prettier across the repo                                                                               |
+| `pnpm csp-hash`  | Recompute CSP hash for the inline theme script (see CLAUDE.md before editing `scripts/csp-script.mjs`) |
 
 ## Architecture
 
 ```
 src/
+├── assets/paintings/    # 121 source JPGs (glob-imported)
 ├── data/                # painting list + site constants
 ├── components/          # Astro components (one per concern)
 ├── scripts/             # external client TS (lightbox, theme toggle)

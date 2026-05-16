@@ -6,9 +6,9 @@ Live: https://joepassmorefineart.com (deployed from `master` to Netlify).
 
 ## Stack
 
-Astro 5 · Tailwind 4 (`@tailwindcss/vite`) · TypeScript strict · Sharp images · Vitest unit tests · Playwright e2e (Chromium desktop + WebKit mobile) · `@axe-core/playwright` for WCAG AA · Husky + lint-staged · Renovate auto-updates · Netlify static hosting with strict CSP.
+Astro 6 · Tailwind 4 (`@tailwindcss/vite`) · TypeScript strict · Sharp images · Vitest unit tests · Playwright e2e (Chromium desktop + WebKit mobile) · `@axe-core/playwright` for WCAG AA · Husky + lint-staged · Renovate auto-updates · Netlify static hosting with strict CSP.
 
-Node 22 LTS, pnpm 9, both managed via Volta on this machine.
+Use `.nvmrc` (Node 22) and the `packageManager` field in `package.json` (pnpm 9.15.9). Local Volta or nvm both work.
 
 ## Commands
 
@@ -52,7 +52,7 @@ The lightbox is the only meaningful client JS. Gallery thumbnails are real `<a>`
 
 **Netlify needs `NODE_ENV=development`.** Set in `netlify.toml`. Without it, pnpm skips devDependencies and Astro's runtime transitive deps (clsx, etc.) get pruned, breaking the build. Astro's own build phase still produces a production bundle internally.
 
-**`clsx` is a direct dep.** Astro 5 imports `{ clsx }` from generated SSR chunks; under pnpm the package isn't always hoisted to `node_modules/clsx` where Node resolution finds it. Pinning it explicitly is the fix.
+**`clsx` is a direct dep.** Astro pulls `clsx` transitively at build time; under pnpm the package isn't always hoisted to `node_modules/clsx` where Node resolution finds it on Netlify. Pinning it explicitly avoids the flakiness.
 
 **`prepare: "husky || true"`.** Husky is a devDep so it's missing in environments that prune devDeps. The `|| true` lets the script no-op cleanly.
 
@@ -74,15 +74,17 @@ pnpm exec playwright install --with-deps webkit
 
 A11y tests force `colorScheme: light` globally and emulate `dark` per-test, because the pre-paint script reads `prefers-color-scheme` from the OS otherwise (host-dependent flakiness).
 
+## CI and operations
+
+- Renovate runs as a GitHub App; `renovate.json` is just config. Auto-merges dev deps and runtime patches; runtime minor/major and vulnerability advisories are manual.
+- CI lives in `.github/workflows/ci.yml` — typecheck → unit tests → build → Playwright (Chromium + WebKit). Browser binaries cached by `pnpm-lock.yaml` hash.
+- Netlify Lighthouse plugin runs informationally on each deploy (no thresholds yet) — see `netlify.toml`.
+
 ## Backlog
 
-Tracked in `docs/superpowers/specs/2026-05-15-gatsby-to-astro-rewrite-design.md`:
-
-- Etsy metadata enrichment (perceptual-hash painting files against the Etsy shop, populate optional fields)
-- Analytics decision (recommend Plausible to keep CSP tight)
-- LCP image preload on gallery
-- README rewrite (still has only the Netlify badge)
-- Latin-only font subsets (no entry point exists in `@fontsource-variable/*` yet)
+- Etsy metadata enrichment — separate research project. The `Painting` type already accepts the optional fields (`title`, `description`, `etsyUrl`, `medium`, `year`); UI lights up automatically when populated.
+- Analytics decision — Plausible recommended (one external host = tight CSP). Currently no analytics.
+- Lighthouse thresholds — set `[plugins.inputs.thresholds]` in `netlify.toml` once 2-3 deploys' worth of real scores exist.
 
 ## Reference docs
 
