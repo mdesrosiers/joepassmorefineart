@@ -16,6 +16,7 @@
     "typecheck": "astro check",
     "format": "prettier --write \"**/*.{astro,ts,tsx,css,md,json,yaml,yml}\"",
     "test": "playwright test",
+    "test:unit": "vitest run",
     "prepare": "husky"
   },
   "dependencies": {
@@ -35,7 +36,8 @@
     "lint-staged": "^15.0.0",
     "prettier": "^3.2.0",
     "prettier-plugin-astro": "^0.13.0",
-    "typescript": "^5.4.0"
+    "typescript": "^5.4.0",
+    "vitest": "^4.1.6"
   },
   "lint-staged": {
     "*.{astro,ts,tsx,css,md,json,yaml,yml}": "prettier --write"
