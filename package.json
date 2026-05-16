@@ -1,0 +1,57 @@
+{
+  "name": "joe-passmore-fine-art",
+  "description": "Joe Passmore Fine Art",
+  "version": "1.0.0",
+  "author": "Martin Desrosiers",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "4.11.3",
+    "gatsby": "2.32.4",
+    "gatsby-image": "2.11.0",
+    "gatsby-plugin-flow": "1.10.0",
+    "gatsby-plugin-google-analytics": "2.11.0",
+    "gatsby-plugin-manifest": "2.12.0",
+    "gatsby-plugin-netlify": "2.11.0",
+    "gatsby-plugin-offline": "3.10.1",
+    "gatsby-plugin-react-helmet": "3.10.0",
+    "gatsby-plugin-robots-txt": "1.5.5",
+    "gatsby-plugin-sharp": "2.14.1",
+    "gatsby-plugin-sitemap": "2.12.0",
+    "gatsby-plugin-typography": "2.12.0",
+    "gatsby-source-filesystem": "2.11.0",
+    "gatsby-transformer-sharp": "2.12.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-helmet": "6.1.0",
+    "react-icons": "4.2.0",
+    "react-typography": "0.16.19",
+    "typography": "0.16.19",
+    "typography-theme-noriega": "0.16.19"
+  },
+  "keywords": [
+    "Joe Passmore",
+    "Fine Art"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build --verbose",
+    "clean": "gatsby clean",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "flow": "flow --show-all-errors --max-warnings 0"
+  },
+  "devDependencies": {
+    "flow-bin": "0.145.0",
+    "prettier": "2.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdesrosiers/joepassmorefineart"
+  },
+  "engines": {
+    "node": "14.15.5",
+    "npm": "6.14.11"
+  }
+}
