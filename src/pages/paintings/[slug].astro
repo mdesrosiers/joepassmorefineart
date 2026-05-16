@@ -1,0 +1,64 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import PaintingDetail from "~/components/PaintingDetail.astro";
+import { getImage } from "astro:assets";
+import {
+  paintings,
+  getPainting,
+  getNeighbors,
+  getPaintingImage,
+} from "~/data/paintings";
+import { site } from "~/data/site";
+
+export async function getStaticPaths() {
+  return paintings.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const painting = getPainting(slug!);
+if (!painting) {
+  return Astro.redirect("/404");
+}
+const image = getPaintingImage(painting.slug)!;
+const { prev, next } = getNeighbors(painting.slug);
+
+const ogImage = await getImage({
+  src: image,
+  width: 1200,
+  height: 630,
+  fit: "contain",
+  background: "#FAF7F2",
+  format: "jpeg",
+});
+
+const titleText = painting.title ?? `Painting ${painting.slug}`;
+const description =
+  painting.description ??
+  `${titleText}, painting by ${site.title}.`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  name: titleText,
+  image: new URL(`/_astro/${image.src.split("/").pop()}`, site.url).toString(),
+  creator: { "@type": "Person", name: site.title },
+  artform: "Painting",
+  ...(painting.medium ? { artMedium: painting.medium } : {}),
+  ...(painting.year ? { dateCreated: String(painting.year) } : {}),
+};
+---
+
+<Layout
+  title={titleText}
+  description={description}
+  path={`/paintings/${painting.slug}`}
+  image={{ src: ogImage.src, width: 1200, height: 630 }}
+  jsonLd={jsonLd}
+>
+  <PaintingDetail
+    painting={painting}
+    image={image}
+    prev={prev}
+    next={next}
+  />
+</Layout>
