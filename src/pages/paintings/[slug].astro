@@ -2,12 +2,7 @@
 import Layout from "~/layouts/Layout.astro";
 import PaintingDetail from "~/components/PaintingDetail.astro";
 import { getImage } from "astro:assets";
-import {
-  paintings,
-  getPainting,
-  getNeighbors,
-  getPaintingImage,
-} from "~/data/paintings";
+import { paintings, getPainting, getNeighbors, getPaintingImage } from "~/data/paintings";
 import { site } from "~/data/site";
 
 export async function getStaticPaths() {
@@ -32,9 +27,7 @@ const ogImage = await getImage({
 });
 
 const titleText = painting.title ?? `Painting ${painting.slug}`;
-const description =
-  painting.description ??
-  `${titleText}, painting by ${site.title}.`;
+const description = painting.description ?? `${titleText}, painting by ${site.title}.`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -55,10 +48,5 @@ const jsonLd = {
   image={{ src: ogImage.src, width: 1200, height: 630 }}
   jsonLd={jsonLd}
 >
-  <PaintingDetail
-    painting={painting}
-    image={image}
-    prev={prev}
-    next={next}
-  />
+  <PaintingDetail painting={painting} image={image} prev={prev} next={next} />
 </Layout>

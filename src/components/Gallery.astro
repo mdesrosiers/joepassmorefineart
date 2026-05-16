@@ -12,23 +12,25 @@ const items = paintings.map((p) => ({
   class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
   aria-label={`${items.length} paintings`}
 >
-  {items.map((p, i) => (
-    <li class="bg-[var(--color-surface)]">
-      <a
-        href={`/paintings/${p.slug}`}
-        data-painting-slug={p.slug}
-        class="block aspect-[3/2] overflow-hidden hover:no-underline"
-      >
-        <Image
-          src={p.image}
-          alt={p.alt}
-          widths={[300, 600, 900]}
-          sizes="(min-width: 1024px) 300px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-          loading={i < 8 ? "eager" : "lazy"}
-          fetchpriority={i === 0 ? "high" : "auto"}
-          class="h-full w-full object-cover"
-        />
-      </a>
-    </li>
-  ))}
+  {
+    items.map((p, i) => (
+      <li class="bg-[var(--color-surface)]">
+        <a
+          href={`/paintings/${p.slug}`}
+          data-painting-slug={p.slug}
+          class="block aspect-[3/2] overflow-hidden hover:no-underline"
+        >
+          <Image
+            src={p.image}
+            alt={p.alt}
+            widths={[300, 600, 900]}
+            sizes="(min-width: 1024px) 300px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+            loading={i < 8 ? "eager" : "lazy"}
+            fetchpriority={i === 0 ? "high" : "auto"}
+            class="h-full w-full object-cover"
+          />
+        </a>
+      </li>
+    ))
+  }
 </ul>
