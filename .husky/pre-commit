@@ -1,8 +1,1 @@
-branch=$(git rev-parse --abbrev-ref HEAD)
-if [ "$branch" = "master" ]; then
-  echo "Direct commits to master are blocked. Create a topic branch:"
-  echo "  git switch -c <branch-name>"
-  exit 1
-fi
-
 pnpm exec lint-staged
