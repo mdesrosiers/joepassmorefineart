@@ -22,6 +22,7 @@ The current site is on Gatsby 2.32 (released 2021), pinned to Node 14.15.5, depe
 - Dark mode (system-preference default, user toggle, persisted in `localStorage`).
 - Responsive design across mobile / tablet / desktop.
 - Refreshed Netlify configuration.
+- Automated dependency updates via Renovate (auto-merge dev deps and patches; manual review for runtime minor/major).
 - Verbatim preservation of all current text content (hero copy, bio, contact links, copyright).
 - Verbatim preservation of all 121 painting images.
 
@@ -97,6 +98,7 @@ joepassmorefineart/
 ├── tsconfig.json
 ├── package.json
 ├── netlify.toml
+├── renovate.json
 ├── public/
 │   ├── favicon.png
 │   ├── robots.txt
@@ -340,6 +342,80 @@ Removed entirely. Decision deferred to a future task. Candidates:
 - Plausible (paid, privacy-first, simple)
 - Cloudflare Web Analytics (free, privacy-first, requires CF as DNS provider — currently Netlify DNS)
 
+## Automated dependency updates
+
+Tool: **Renovate** (GitHub App, free for public/personal repos). Configured via a single `renovate.json` at the repo root.
+
+### Policy
+
+| Update type | Behavior |
+|---|---|
+| Lockfile maintenance (weekly refresh of `pnpm-lock.yaml` without dep bumps) | Auto-merge |
+| `devDependencies` patch + minor + major | Auto-merge |
+| Runtime dep **patch** updates (astro, tailwindcss, sharp, etc.) | Auto-merge |
+| Runtime dep **minor** updates | Manual review |
+| Runtime dep **major** updates | Manual review |
+| Security advisories (any dep) | Manual review (auto-merge could mask a breaking patch under time pressure) |
+
+Auto-merge fires only after Netlify's deploy preview build passes. Renovate waits on the `netlify/joepassmorefineart/deploy-preview` status check before merging.
+
+### Schedule
+
+Renovate runs on a schedule (`before 9am on Monday`) so PRs land in a predictable window rather than a constant drip.
+
+### Grouping
+
+- All `@astrojs/*` packages bumped together.
+- All `@fontsource-variable/*` packages bumped together.
+- All Playwright (`@playwright/test`, `@axe-core/playwright`) bumped together.
+
+### `renovate.json` (illustrative, final wording during implementation)
+
+```json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits", ":automergeMinor"],
+  "schedule": ["before 9am on monday"],
+  "lockFileMaintenance": { "enabled": true, "automerge": true },
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "automerge": true
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "major"],
+      "automerge": false
+    },
+    {
+      "matchPackagePatterns": ["^@astrojs/"],
+      "groupName": "Astro integrations"
+    },
+    {
+      "matchPackagePatterns": ["^@fontsource-variable/"],
+      "groupName": "Fontsource fonts"
+    }
+  ],
+  "vulnerabilityAlerts": { "automerge": false }
+}
+```
+
+### One-time setup tasks (handled during rollout)
+
+1. Install the [Renovate GitHub App](https://github.com/apps/renovate) on the `mdesrosiers/joepassmorefineart` repo.
+2. Confirm Renovate's onboarding PR was either merged or replaced by the committed `renovate.json`.
+3. Verify the first auto-merge cycle works end-to-end on a no-op lockfile maintenance PR.
+
+### Trade-offs noted
+
+- Auto-merging `devDependencies` major updates is more aggressive than the recommended preset. Justified for this project: dev deps don't ship to production, breakage at most blocks the next build (caught immediately). User has confirmed this is acceptable.
+- If Renovate ever causes friction (noisy PRs, broken builds), the policy is tunable in one file without code changes.
+
 ## Verification
 
 Before declaring the rewrite complete, the implementer must:
@@ -351,6 +427,7 @@ Before declaring the rewrite complete, the implementer must:
 5. **Lighthouse:** ≥ 95 on Performance, Accessibility, Best Practices, SEO for `/` and a sample painting page (mobile and desktop).
 6. **Static fallback:** confirm gallery thumbnails navigate correctly with JS disabled.
 7. **Crawler check:** confirm sitemap includes every painting URL and `robots.txt` resolves.
+8. **Renovate check:** Renovate App is installed; `renovate.json` is committed; onboarding PR resolved; first lockfile-maintenance cycle auto-merges cleanly.
 
 ## Migration order (preview — full plan in writing-plans next)
 
@@ -365,8 +442,9 @@ Before declaring the rewrite complete, the implementer must:
 9. Build `Lightbox.astro` and integrate into gallery.
 10. Build `about.astro`, `contact.astro`, `404.astro`.
 11. Add `netlify.toml`, `manifest.webmanifest`, `robots.txt`, sitemap integration.
-12. Run verification checklist; iterate until clean.
-13. Deploy to Netlify, smoke-test live URL.
+12. Add `renovate.json`; install Renovate GitHub App; resolve onboarding PR.
+13. Run verification checklist; iterate until clean.
+14. Deploy to Netlify, smoke-test live URL.
 
 ## Future work
 
