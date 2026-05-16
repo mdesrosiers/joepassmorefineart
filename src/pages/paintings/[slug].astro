@@ -40,7 +40,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "VisualArtwork",
   name: titleText,
-  image: new URL(`/_astro/${image.src.split("/").pop()}`, site.url).toString(),
+  image: new URL(ogImage.src, site.url).toString(),
   creator: { "@type": "Person", name: site.title },
   artform: "Painting",
   ...(painting.medium ? { artMedium: painting.medium } : {}),
