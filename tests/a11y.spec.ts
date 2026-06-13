@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const pages = ["/", "/about", "/contact", "/paintings/121", "/paintings/001", "/404"];
+const pages = ["/", "/about/", "/contact/", "/paintings/121/", "/paintings/001/", "/404"];
 
 const themes = [
   {

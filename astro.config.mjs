@@ -5,7 +5,7 @@ import tailwind from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://joepassmorefineart.com',
   output: 'static',
-  trailingSlash: 'never',
+  trailingSlash: 'always',
   build: { format: 'directory' },
   integrations: [
     sitemap({

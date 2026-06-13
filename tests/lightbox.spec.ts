@@ -21,8 +21,8 @@ test("ArrowRight navigates to next painting", async ({ page }) => {
   await expect(page).toHaveURL(/\/paintings\/120/);
 });
 
-test("Direct visit to /paintings/042 renders standalone page (no lightbox)", async ({ page }) => {
-  await page.goto("/paintings/042");
+test("Direct visit to /paintings/042/ renders standalone page (no lightbox)", async ({ page }) => {
+  await page.goto("/paintings/042/");
   await expect(page.locator("article img")).toBeVisible();
   await expect(page.locator("#lightbox")).toHaveCount(0);
 });
