@@ -10,7 +10,10 @@ type Props = {
 };
 
 const { title, description, path, image, jsonLd } = Astro.props;
-const canonicalUrl = new URL(path, site.url).toString();
+// Match Astro's `trailingSlash: 'always'` so canonical/og:url agree with the
+// served URL and Netlify doesn't 301 them.
+const normalizedPath = path === "/" || path.endsWith("/") ? path : `${path}/`;
+const canonicalUrl = new URL(normalizedPath, site.url).toString();
 const ogImage = image
   ? new URL(image.src, site.url).toString()
   : new URL("/og-default.jpg", site.url).toString();

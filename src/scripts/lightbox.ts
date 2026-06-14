@@ -133,7 +133,7 @@ class Lightbox {
       this.dialog.showModal();
     }
     if (push) {
-      history.pushState({ lb: true }, "", `/paintings/${slug}`);
+      history.pushState({ lb: true }, "", `/paintings/${slug}/`);
       this.pushedThisSession = true;
     }
     this.preloadNeighbors();
@@ -145,7 +145,7 @@ class Lightbox {
     this.current = i;
     const slug = this.slugs[i];
     this.swapImage(slug);
-    history.replaceState({ lb: true }, "", `/paintings/${slug}`);
+    history.replaceState({ lb: true }, "", `/paintings/${slug}/`);
     this.preloadNeighbors();
   }
 

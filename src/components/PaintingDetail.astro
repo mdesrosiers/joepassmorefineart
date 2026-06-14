@@ -49,8 +49,8 @@ const { painting, image, prev, next } = Astro.props;
   }
 
   <nav aria-label="Painting navigation" class="mt-8 flex items-center justify-between text-sm">
-    {prev ? <a href={`/paintings/${prev.slug}`}>← {prev.title ?? prev.alt}</a> : <span />}
+    {prev ? <a href={`/paintings/${prev.slug}/`}>← {prev.title ?? prev.alt}</a> : <span />}
     <a href="/" class="text-text-muted">Back to gallery</a>
-    {next ? <a href={`/paintings/${next.slug}`}>{next.title ?? next.alt} →</a> : <span />}
+    {next ? <a href={`/paintings/${next.slug}/`}>{next.title ?? next.alt} →</a> : <span />}
   </nav>
 </article>
