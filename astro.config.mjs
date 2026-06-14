@@ -5,8 +5,12 @@ import tailwind from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://joepassmorefineart.com',
   output: 'static',
-  trailingSlash: 'always',
-  build: { format: 'directory' },
+  trailingSlash: 'never',
+  // 'file' emits dist/about.html instead of dist/about/index.html so Netlify
+  // serves slash-less URLs (/about, /paintings/120) with 200 directly. With
+  // 'directory', Netlify 301s the bare path to the trailing-slash form, which
+  // Search Console flags as "Page with redirect".
+  build: { format: 'file' },
   integrations: [
     sitemap({
       changefreq: 'monthly',
